@@ -2,6 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const morgan = require('morgan');
+const path = require('path');
 const fileUpload = require('express-fileupload');
 const userRoutes = require('./routes/userRoutes');
 const linkRoutes = require('./routes/linkRoutes');
@@ -14,6 +15,7 @@ app.use(fileUpload()); //Con este paquete subimos los ficheros
 app.use(express.json()); //Para leer formatos JSON
 app.use(morgan('dev')); //Generar registro de acceso en la terminal
 app.use(cors()); //Habilita el acceso a la Api desde cualquier origen
+app.use(express.static(path.join(__dirname, 'public/profile')));
 
 //Rutas de user
 app.use('/user', userRoutes);

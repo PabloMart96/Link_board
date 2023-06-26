@@ -1,5 +1,5 @@
 const express = require('express');
-const { newUserController, loginController, updateUser, getUserProfile, imagenController } = require('../controllers/users');
+const { newUserController, loginController, updateUser, getUserProfile, getUserProfileById, imagenController, getUserLinksController, getUserLinksByIdController } = require('../controllers/users');
 const validateAuth = require('../middlewares/validateAuth');
 
 const userRoutes = express.Router();
@@ -11,7 +11,10 @@ userRoutes.route('/login').post(loginController); //Login de usuario
 
 //ENDPOINTS PRIVADOS
 userRoutes.route('/profile').all(validateAuth).get(getUserProfile); //Devuelve la informacion del usuario
+userRoutes.route('/profile/:id').all(validateAuth).get(getUserProfileById); //Devuelve la informacion del usuario a partir del id
 userRoutes.route('/profile').all(validateAuth).get(getUserProfile).put(updateUser); //Actualiza el username, email, password, descripcion y imagen del usuario
 userRoutes.route('/upload').all(validateAuth).post(imagenController); // Actualiza unicamente la imagen de perfil del usuario
+userRoutes.route('/links').all(validateAuth).get(getUserLinksController); // Muestra los links publicados por el usuario
+userRoutes.route('/links/:id').all(validateAuth).get(getUserLinksByIdController); // Muestra los links publicados por el usuario a partir del id pasado por params
 
 module.exports = userRoutes;
