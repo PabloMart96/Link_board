@@ -7,6 +7,7 @@ const sharp = require('sharp');
 const nanoid = require('nanoid');
 const { generateError } = require("../helpers");
 const { createUser, getUserById, getUserByEmail, updateUserById, uploadUserImage } = require("../repositories/usersRepository");
+const { getLinksByUserId } = require('../repositories/linksRepository');
 
 //Crea un esquema de validacion con el paquete Joi
 const schema = Joi.object().keys({
@@ -43,7 +44,7 @@ const newUserController = async (req, res, next) => {
   }
 };
 
-//Devuelve el username y email de un usuario
+//Devuelve la informacion del usuario a partir del email autentificado
 const getUserProfile = async (req, res, next) => {
   try {
     const { email } = req.auth;
@@ -57,8 +58,32 @@ const getUserProfile = async (req, res, next) => {
     res.send({
       status: 'success',
       message: `Usuario con id: ${id}`,
-      data: { username, email, created_at, image, description }
+      data: { id, username, email, created_at, image, description }
     });
+  } catch (error) {
+    next(error);
+  }
+}
+
+//Devuelve la informacion del usuario a partir del id
+const getUserProfileById = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+
+    const user = await getUserById(id);
+
+    if (!user) {
+      throw generateError('No hay ningun usuario con ese email y/o password', 404);
+    }
+
+    const { email, username, created_at, image, description } = user;
+
+    res.send({
+      status: 'success',
+      message: `Usuario con id: ${id}`,
+      data: { id, username, email, created_at, image, description },
+    })
+
   } catch (error) {
     next(error);
   }
@@ -108,7 +133,7 @@ const updateUser = async (req, res, next) => {
 
     const { body } = req;
     /*await schema.validateAsync(body);*/
-    let { username, email, password, description, image} = body; //desestructuracion del body pasado en la req
+    let { username, email, password, description, image } = body; //desestructuracion del body pasado en la req
 
     const userById = await getUserById(id); //Seleccionamos el usuario a partir del id de la validacion
     const user = await getUserByEmail(email); //Selecionamos el usuario a partir del email de la req
@@ -149,6 +174,7 @@ const updateUser = async (req, res, next) => {
 
       //creamos la ruta de la imagen
       const pathPicture = path.join(__dirname, '../public/profile');
+
 
       if (image) {
         await fs.unlink(`${pathPicture}/${image}`);
@@ -231,10 +257,43 @@ const imagenController = async (req, res, next) => {
   }
 }
 
+const getUserLinksController = async (req, res, next) => {
+  try {
+    const { id } = req.auth;
+
+    const links = await getLinksByUserId(id);
+
+    res.send({
+      status: 'ok',
+      data: links,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+const getUserLinksByIdController = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+
+    const links = await getLinksByUserId(id);
+
+    res.send({
+      status: 'ok',
+      data: links,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   newUserController,
   loginController,
   updateUser,
   getUserProfile,
   imagenController,
+  getUserLinksController,
+  getUserProfileById,
+  getUserLinksByIdController,
 };
