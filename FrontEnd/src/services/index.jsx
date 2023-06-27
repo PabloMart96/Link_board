@@ -96,3 +96,37 @@ export const UpdateUserService = async ({ token, data }) => {
 
     return json.message;
 }
+
+export const sendPostService = async ({ token, data }) => {
+    const response = await fetch(`http://localhost:3000/links/create`, {
+        method: "POST",
+        body: data,
+        headers: {
+            Authorization: token,
+        },
+    });
+
+    const json = await response.json();
+
+    if (!response.ok) {
+        throw new Error(json.message);
+    }
+
+    return json.data;
+
+}
+
+export const deletePostService = async ({ id, token }) => {
+    const response = await fetch(`http://localhost:3000/links/${id}`, {
+        method: "DELETE",
+        headers: {
+            Authorization: token,
+        },
+    });
+
+    const json = await response.json();
+
+    if (!response.ok) {
+        throw new Error(json.message);
+    }
+};
