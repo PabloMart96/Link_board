@@ -1,7 +1,11 @@
-
+import { Link, Typography } from "@mui/material"
 
 export const Footer = () => {
     return (
-        <footer>(c) 2023 Hack A Boss</footer>
+        <Typography variant="body2" color='text.secondary' align="center" sx={{ backgroundColor: 'secondary.main' }}>
+            {"Copyright © "}
+            <Link color='inherit' href="https://www.hackaboss.com/"> Hack A Boss</Link>{" "}
+            {new Date().getFullYear()}{"."}
+        </Typography>
     )
 }

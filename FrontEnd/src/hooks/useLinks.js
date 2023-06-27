@@ -29,5 +29,13 @@ export const useLinks = (id) => {
         loadLinks();
     }, [id, token]);
 
-    return { links, error, loading };
+    const addPost = (data) => {
+        setLinks([data, ...links]);
+    };
+
+    const removePost = (id) => {
+        setLinks(links.filter((link) => link.id !== id));
+    };
+
+    return { links, error, addPost, removePost, loading };
 };

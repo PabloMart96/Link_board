@@ -4,10 +4,11 @@ import { useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
 import { Error } from '../components/Error';
 import { Loading } from '../components/Loading';
+import { NewPost } from '../components/NewPost';
 
 export const HomePage = () => {
 
-    const { links, error, loading } = useLinks();
+    const { links, error, addPost, loading } = useLinks();
     const { user } = useContext(AuthContext);
 
     if (loading) return <Loading />
@@ -16,10 +17,15 @@ export const HomePage = () => {
     return (
         <>
             {user ?
-                <section>
-                    <h1>Links Posted</h1>
-                    <LinkList links={links} />
-                </section> : null}
+                <div>
+                    <NewPost addPost={addPost} />
+                    <section>
+                        <h2>Publicaciones Recientes</h2>
+                        <LinkList links={links} />
+                    </section>
+
+                </div> : null
+            }
         </>
 
     )
