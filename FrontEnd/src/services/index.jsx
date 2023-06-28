@@ -1,3 +1,22 @@
+export const registerUserService = async({ username, email, password}) => {
+    const response = await fetch(`http://localhost:3000/user/`,{
+        method: "POST",
+        body: JSON.stringify({username, email, password}),
+        headers:{
+            "Content-type": "application/json",
+        },
+    });
+
+    const json = await response.json();
+
+    if(!response.ok){
+        throw new Error(json.message);
+    }
+    return json.data;
+}
+
+
+
 export const loginUserService = async ({ email, password }) => {
     const response = await fetch(`http://localhost:3000/user/login`, {
         method: "POST",
