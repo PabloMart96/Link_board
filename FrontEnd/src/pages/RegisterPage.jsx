@@ -1,13 +1,14 @@
-import { useContext, useState } from "react"
+//import { useContext } from "react";
+import { useState } from "react"
 import { useNavigate } from "react-router-dom";
 import { registerUserService } from "../services";
-import { AuthContext } from "../context/AuthContext";
+//import { AuthContext } from "../context/AuthContext";
 
 export const RegisterPage = () => {
 
     const navigate = useNavigate();
 
-    const { register } = useContext(AuthContext);
+ //   const { register } = useContext(AuthContext);
     const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -18,13 +19,24 @@ export const RegisterPage = () => {
         e.preventDefault();
 
         try{
-            console.log();
+            //Con este trozo de codigo se logea al usuario despues de registrarse
+            //Descomentar todo lo que esta comentado
+
+            // const response = await registerUserService({ username, email, password });
+            // const token = response.access;
+            // const BearerToken = `Bearer ${token}`;
+            // register(BearerToken);
+            // navigate("/");
+
+
+            //Con este trozo se redirige al login
+            await registerUserService({ username, email, password });
+            navigate("/login");
+
+
         } catch (error){
             setError(error.message)
         }
-
-
-
     }
 
     return (
