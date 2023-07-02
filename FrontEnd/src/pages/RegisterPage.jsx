@@ -20,10 +20,8 @@ export const RegisterPage = () => {
 
         try{
             //Con este trozo de codigo se logea al usuario despues de registrarse
-            //Descomentar todo lo que esta comentado
-
+            
             const response = await registerUserService({ username, email, password });
-           // const token = response.access;
             const BearerToken = `Bearer ${response}`;
             login(BearerToken);
             navigate("/");
@@ -39,9 +37,7 @@ export const RegisterPage = () => {
         }
     };
 
-    // const redirectToLogin = () => {
-    //     navigate("/login");
-    //   };
+
 
     return (
         <section>
@@ -60,7 +56,7 @@ export const RegisterPage = () => {
                     <input type="password" name="password" id="password" value={password} required
                     onChange={(e) => setPassword(e.target.value)}/><br/>
                 </fieldset>
-                <button /*type="button" onClick={redirectToLogin}*/>Sign Up</button>
+                <button>Sign Up</button>
                 {error ? <p>{error}</p> : null}
             </form>
         </section>
