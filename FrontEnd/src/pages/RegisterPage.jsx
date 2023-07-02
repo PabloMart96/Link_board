@@ -1,15 +1,15 @@
-//import { useContext } from "react";
-import { useState } from "react";
+import { useContext } from "react";
+import { useState } from "react"
 import { useNavigate } from "react-router-dom";
 import { registerUserService } from "../services";
+import { AuthContext } from "../context/AuthContext";
 import { Slider } from "../components/Slider";
-//import { AuthContext } from "../context/AuthContext";
 import "../styles/login&register.css";
 
 export const RegisterPage = () => {
   const navigate = useNavigate();
-
-  //   const { register } = useContext(AuthContext);
+  
+  const { login } = useContext(AuthContext);
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -17,24 +17,23 @@ export const RegisterPage = () => {
 
   const handleForm = async (e) => {
     e.preventDefault();
+  
+        try{
+            //Con este trozo de codigo se logea al usuario despues de registrarse
+            
+            const response = await registerUserService({ username, email, password });
+            const BearerToken = `Bearer ${response}`;
+            login(BearerToken);
+            navigate("/");
 
-    try {
-      //Con este trozo de codigo se logea al usuario despues de registrarse
-      //Descomentar todo lo que esta comentado
+            //Con este trozo no se logea y redirige al login
+            // await registerUserService({ username, email, password });
+            // navigate("/login");
 
-      // const response = await registerUserService({ username, email, password });
-      // const token = response.access;
-      // const BearerToken = `Bearer ${token}`;
-      // register(BearerToken);
-      // navigate("/");
-
-      //Con este trozo se redirige al login
-      await registerUserService({ username, email, password });
-      navigate("/login");
-    } catch (error) {
-      setError(error.message);
-    }
-  };
+        } catch (error){
+            setError(error.message);
+        }
+    };
 
   return (
     <section className="formSection">
@@ -83,3 +82,4 @@ export const RegisterPage = () => {
     </section>
   );
 };
+
