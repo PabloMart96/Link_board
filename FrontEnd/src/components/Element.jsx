@@ -28,7 +28,7 @@ export const Element = ({ link, removePost }) => {
 
     return (
         <article>
-            <h4>{link.titulo}</h4>
+            <h4><Link to={`/link-detail/${link.id}`}>{link.titulo}</Link></h4>
             <p>{link.url}</p>
             <p>{link.description}</p>
             <p>
