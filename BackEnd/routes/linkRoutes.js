@@ -1,6 +1,6 @@
 const express = require('express');
 const validateAuth = require('../middlewares/validateAuth');
-const { getLinksController, newLinkController, deleteLinkController } = require('../controllers/links');
+const { getLinksController, newLinkController, deleteLinkController, getSingleLinkController } = require('../controllers/links');
 const { registerVoteController, getAverageRatings, getUserVote } = require('../controllers/ratings');
 
 const linkRoutes = express.Router();
@@ -13,5 +13,6 @@ linkRoutes.route('/:id/ratings').all(validateAuth).post(registerVoteController);
 linkRoutes.route('/').all(validateAuth).get(getLinksController); //Mostrar todos los enlaces publicados
 linkRoutes.route('/:id/average').all(validateAuth).get(getAverageRatings); //Mostrar la media de las valoraciones de una publicacion
 linkRoutes.route('/:id').all(validateAuth).get(getUserVote); //Mostrar si un usuario ha votado en un enlace
+linkRoutes.route('/link-detail/:id').all(validateAuth).get(getSingleLinkController); // Mostrar un enlace publicado por id
 
 module.exports = linkRoutes;

@@ -57,10 +57,7 @@ const deleteLinkController = async (req, res, next) => {
 
     const link = await getLinkById(id);
     const { url, titulo } = link;
-    if (!link) {
-      throw generateError('El link no existe', 400);
-    }
-
+    
     if (userId !== link.user_id) {
       throw generateError('Estas tratando de borrar un link que no es tuyo!!', 401);
     }
@@ -78,8 +75,35 @@ const deleteLinkController = async (req, res, next) => {
   }
 };
 
+
+//Devuelve el link por ID
+const getSingleLinkController = async (req, res, next) => {
+  try {
+    console.log(req);
+    const { id } = req.params;
+    
+//    await schema2.validateAsync(id);
+    const link = await getLinkById(id);
+
+    console.log(id);
+    console.log(link);
+
+
+    res.send({
+      status: 'success',
+      data: link,
+    });
+
+  } catch (error) {
+    next(error);
+  }
+};
+
+
+
 module.exports = {
   getLinksController,
   newLinkController,
   deleteLinkController,
+  getSingleLinkController,
 }

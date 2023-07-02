@@ -1,4 +1,5 @@
 const { getConnection } = require('../db/db');
+const { generateError } = require('../helpers');
 
 
 //Devuelve todos los links de la base de datos
@@ -46,6 +47,12 @@ const getLinkById = async (id) => {
             SELECT * FROM links WHERE id = ?
         `,
             [id]);
+
+            if(result.length === 0){
+                throw generateError(`El link con ID: ${id} no existe`, 404);
+            }
+
+            console.log(result);
         return result[0];
     } finally {
         if (connection) connection.release();
