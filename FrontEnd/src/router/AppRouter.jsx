@@ -5,6 +5,7 @@ import { LoginPage } from '../pages/LoginPage';
 import { RegisterPage } from '../pages/RegisterPage';
 import { ProfilePage } from '../pages/ProfilePage';
 import { UpdateProfilePage } from '../pages/UpdateProfilePage';
+import { LinkPage } from '../pages/LinkPage';
 import { NotFoundPage } from '../pages/NotFoundPage';
 export const AppRouter = () => {
     return (
@@ -14,6 +15,7 @@ export const AppRouter = () => {
             <Route path='/register' element={<RegisterPage />} />
             <Route path='/user/:id' element={<ProfilePage />} />
             <Route path='/update' element={<UpdateProfilePage />} />
+            <Route path='/link-detail/:id' element={<LinkPage />} />
             <Route path='*' element={<NotFoundPage />} />
         </Routes>
     )
