@@ -111,18 +111,6 @@ export const getAllLinksService = async (token) => {
     return json.data;
 };
 
-// export const getSingleLinkService = async ( id ) => {
-//     const response = await fetch(`http://localhost:3000/links/link-detail/${id}`);
-
-//     const json = await response.json();
-
-//     if (!response.ok) {
-//         throw new Error(json.message);
-//     }
-
-//     return json.data;
-// };
-
 export const UpdateUserService = async ({ token, data }) => {
     const response = await fetch(`http://localhost:3000/user/profile`, {
         method: 'PUT',
