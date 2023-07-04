@@ -162,5 +162,25 @@ export const deletePostService = async ({ id, token }) => {
     }
 };
 
+export const UpdateLinkService = async ({ id, token, data }) => {
+    const response = await fetch(`http://localhost:3000/links/edit/${id}`, {
+      method: "PUT",
+      headers: {
+        Authorization: token,
+        "Content-Type": "application/json", 
+      },
+      body: JSON.stringify(data), 
+    });
+  
+    const json = await response.json();
+  
+    if (!response.ok) {
+      throw new Error(json.message);
+    }
+  
+    return json.message;
+  };
+
+
 
 

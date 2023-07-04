@@ -39,13 +39,16 @@ export const Element = ({ link, removePost }) => {
 
             {user && user.id === link.user_id ? (
                 <section>
-                    <button
-                        onClick={() => {
-                            if (window.confirm("Are you sure?")) deletePost(link.id);
-                        }}
-                    >
-                        Eliminar
-                    </button>
+                    <Link to={`/links/edit/${link.id}`}>
+                        <button>Editar</button>
+                    </Link>
+                        <button
+                            onClick={() => {
+                                if (window.confirm("Are you sure?")) deletePost(link.id);
+                            }}
+                        >
+                            Eliminar
+                        </button>
                     {error ? <p>{error}</p> : null}
                 </section>
             ) : null}
