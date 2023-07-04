@@ -188,7 +188,7 @@ const updateUser = async (req, res, next) => {
         await fs.unlink(`${pathPicture}/${image}`);
       }
 
-      const imageName = `${nanoid(24)}-${picture.name}`;
+      const imageName = `${nanoid(24)}.jpg`;
       const pathImage = `${pathPicture}/${imageName}`;
 
       //Redimensionamos la imagen
@@ -243,7 +243,7 @@ const imagenController = async (req, res, next) => {
       await fs.unlink(`${pathPicture}/${image}`);
     }
 
-    const imageName = `${nanoid(24)}-${picture.name}`;
+    const imageName = `${nanoid(24)}.jpg`;
     const pathImage = `${pathPicture}/${imageName}`;
 
     //Redimensionamos la imagen
