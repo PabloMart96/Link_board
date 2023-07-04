@@ -97,10 +97,31 @@ const getLinksByUserId = async (id) => {
     }
 };
 
+const updateLinkById = async (data) => {
+    let connection;
+    const { id, url, titulo, description } = data;
+
+    try {
+        connection = await getConnection();
+
+        await connection.query(`
+            UPDATE links
+            SET url = ?, titulo = ?, description = ? WHERE id = ?
+        `,
+            [url, titulo, description, id]);
+
+        return true;
+    } finally {
+        if (connection) connection.release();
+    }
+
+};
+
 module.exports = {
     getAllLinks,
     createLink,
     getLinkById,
     deleteLinkById,
     getLinksByUserId,
+    updateLinkById,
 }

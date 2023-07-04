@@ -1,5 +1,5 @@
 const Joi = require('joi');
-const { getAllLinks, createLink, getLinkById, deleteLinkById } = require("../repositories/linksRepository");
+const { getAllLinks, createLink, getLinkById, deleteLinkById, updateLinkById } = require("../repositories/linksRepository");
 const { generateError } = require('../helpers');
 
 //Crea un esquema de validacion con el paquete Joi
@@ -40,6 +40,34 @@ const newLinkController = async (req, res, next) => {
     res.send({
       status: 'success',
       message: `Links con id: ${id} creado correctamente!!`,
+      data: { url, titulo, description },
+    });
+
+  } catch (error) {
+    next(error);
+  }
+};
+
+const updateLinkController = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const { body } = req;
+    await schema.validateAsync(body);
+    const { url, titulo, description } = body;
+    console.log(id);
+    const userId = req.auth.id;
+
+    const link = await getLinkById(id);
+    
+    if (userId !== link.user_id) {
+      throw generateError('Estás tratando de editar un link que no es tuyo!!', 401);
+    }
+
+    await updateLinkById({ id, url, titulo, description });
+
+    res.send({
+      status: 'success',
+      message: `El link con id: ${id} fue editado exitosamente!!`,
       data: { url, titulo, description },
     });
 
@@ -106,4 +134,5 @@ module.exports = {
   newLinkController,
   deleteLinkController,
   getSingleLinkController,
+  updateLinkController,
 }

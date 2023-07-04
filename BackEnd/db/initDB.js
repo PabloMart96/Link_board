@@ -40,6 +40,7 @@ async function main() {
         user_id INTEGER NOT NULL,
         url VARCHAR(200) NOT NULL,
         titulo VARCHAR(200) NOT NULL,
+        image VARCHAR(200) NULL DEFAULT NULL,
         description VARCHAR(200) NOT NULL,
         created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
         FOREIGN KEY (user_id) REFERENCES users(id)
