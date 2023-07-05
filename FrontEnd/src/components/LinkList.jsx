@@ -1,7 +1,8 @@
 import { Element } from './Element';
-import propTypes from 'prop-types';
+import PropTypes from 'prop-types';
 
 export const LinkList = ({ links, removePost }) => {
+
     return links.length ? (
         <ul>
             {links.map((link, index) => {
@@ -18,6 +19,6 @@ export const LinkList = ({ links, removePost }) => {
 };
 
 LinkList.propTypes = {
-    links: propTypes.array,
-    removePost: propTypes.func,
+    links: PropTypes.array,
+    removePost: PropTypes.func,
 }

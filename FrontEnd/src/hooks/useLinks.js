@@ -5,7 +5,6 @@ import { AuthContext } from "../context/AuthContext";
 export const useLinks = (id) => {
 
     const { token } = useContext(AuthContext);
-
     const [links, setLinks] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
@@ -29,6 +28,7 @@ export const useLinks = (id) => {
         loadLinks();
     }, [id, token]);
 
+
     const addPost = (data) => {
         setLinks([data, ...links]);
     };
@@ -36,6 +36,7 @@ export const useLinks = (id) => {
     const removePost = (id) => {
         setLinks(links.filter((link) => link.id !== id));
     };
+
 
     return { links, error, addPost, removePost, loading };
 };

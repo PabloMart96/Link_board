@@ -1,9 +1,11 @@
-/* eslint-disable react/prop-types */
 import { Link, useNavigate } from "react-router-dom";
 import { useContext, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { deletePostService } from "../services";
 import { PropTypes } from 'prop-types';
+import Box from '@mui/material/Box';
+import { Typography } from "@mui/material";
+import { Vote } from "./Vote";
 
 export const Element = ({ link, removePost }) => {
 
@@ -11,15 +13,14 @@ export const Element = ({ link, removePost }) => {
     const { token, user } = useContext(AuthContext);
     const [error, setError] = useState("");
 
+
     const deletePost = async (id) => {
         try {
             await deletePostService({ id, token });
-
             if (removePost) {
                 removePost(id);
-                navigate('/');
             } else {
-                navigate('/');
+                navigate(`/`);
             }
         } catch (error) {
             setError(error.message);
@@ -35,7 +36,13 @@ export const Element = ({ link, removePost }) => {
                 By <Link to={`/user/${link.user_id}`}>{link.username}</Link> on{" "}
                 {new Date(link.created_at).toLocaleString()}
             </p>
-            {link.media ? <p>rating: {link.media}</p> : null}
+            <Box sx={{
+                '& > legend': { mt: 2 },
+            }}>
+                <Vote linkId={link.id} initialValue={parseInt(link.media)} />
+                <Typography>Votos: {link.votes}</Typography>
+
+            </Box>
 
             {user && user.id === link.user_id ? (
                 <section>

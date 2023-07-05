@@ -8,7 +8,7 @@ import { NewPost } from '../components/NewPost';
 
 export const HomePage = () => {
 
-    const { links, error, addPost, loading } = useLinks();
+    const { links, error, addPost, loading, removePost } = useLinks();
     const { user } = useContext(AuthContext);
 
     if (loading) return <Loading />
@@ -21,7 +21,7 @@ export const HomePage = () => {
                     <NewPost addPost={addPost} />
                     <section>
                         <h2>Publicaciones Recientes</h2>
-                        <LinkList links={links} />
+                        <LinkList links={links} removePost={removePost} />
                     </section>
 
                 </div> : null

@@ -107,15 +107,9 @@ const deleteLinkController = async (req, res, next) => {
 //Devuelve el link por ID
 const getSingleLinkController = async (req, res, next) => {
   try {
-    console.log(req);
     const { id } = req.params;
     
-//    await schema2.validateAsync(id);
     const link = await getLinkById(id);
-
-    console.log(id);
-    console.log(link);
-
 
     res.send({
       status: 'success',
@@ -126,8 +120,6 @@ const getSingleLinkController = async (req, res, next) => {
     next(error);
   }
 };
-
-
 
 module.exports = {
   getLinksController,

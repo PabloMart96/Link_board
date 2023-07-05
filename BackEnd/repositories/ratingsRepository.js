@@ -1,5 +1,4 @@
 const { getConnection } = require('../db/db');
-const { generateError } = require('../helpers');
 
 //Creamos una valoracion de la publicacion
 const addVote = async (user_id, link_id, rating) => {
@@ -7,15 +6,6 @@ const addVote = async (user_id, link_id, rating) => {
 
     try {
         connection = await getConnection();
-
-        const [vote] = await connection.query(`
-        SELECT * FROM ratings WHERE user_id = ? AND link_id = ?
-        `,
-            [user_id, link_id]);
-
-        if (vote.length > 0) {
-            throw generateError('El usuario ya ha realizado un voto sobre este enlace', 409);
-        }
 
         const [result] = await connection.query(`
             INSERT INTO ratings (user_id, link_id, rating)
@@ -52,22 +42,27 @@ const getRating = async (link_id) => {
     }
 };
 
-//Comprobar si el usuario ha votado ya en el link
-const checkVoted = async (userId, id) => {
+//Comprobar si el usuario puede o ya en el link
+const checkVoted = async (userId, linkId) => {
     let connection;
     try {
         connection = await getConnection();
 
         const [result] = await connection.query(`
-            SELECT * FROM ratings WHERE id = ? AND user_id = ?
+            SELECT * FROM ratings WHERE user_id = ? AND link_Id = ?
         `,
-            [id, userId]);
+            [userId, linkId]);
 
-        if (result.length > 0) {
-            return true
+        const [links] = await connection.query(`
+            SELECT * FROM links WHERE user_id = ? AND id = ?
+        `,
+            [userId, linkId]);
+
+        if (result.length > 0 || links.length > 0) {
+            return false
         }
 
-        return false;
+        return true;
 
     } finally {
         if (connection) connection.release();
@@ -75,8 +70,9 @@ const checkVoted = async (userId, id) => {
 }
 
 
+
 module.exports = {
     addVote,
     getRating,
-    checkVoted
+    checkVoted,
 }
