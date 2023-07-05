@@ -113,7 +113,6 @@ export const sendPostService = async ({ token, data }) => {
     }
 
     return json.data;
-
 }
 
 export const deletePostService = async ({ id, token }) => {
@@ -130,3 +129,41 @@ export const deletePostService = async ({ id, token }) => {
         throw new Error(json.message);
     }
 };
+
+
+export const addVoteService = async (id, token, data) => {
+    const response = await fetch(`http://localhost:3000/links/${id}/ratings`, {
+        method: 'POST',
+        body: JSON.stringify({ rating: data }),
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: token,
+        }
+    })
+    const json = await response.json();
+
+    if (!response.ok) {
+        throw new Error(json.message);
+    }
+
+    return json.data;
+
+}
+
+
+export const checkVoted = async (linkId, token) => {
+    const response = await fetch(`http://localhost:3000/links/${linkId}`, {
+        method: 'GET',
+        headers: {
+            Authorization: token,
+        },
+    })
+
+    const json = await response.json();
+
+    if (!response.ok) {
+        throw new Error(json.message);
+    }
+
+    return json.data;
+}

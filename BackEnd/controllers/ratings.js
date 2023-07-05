@@ -24,6 +24,16 @@ const registerVoteController = async (req, res, next) => {
             throw generateError('No existe una publicacion con ese id', 400);
         }
 
+        const hasVoted = await checkVoted(id, linkId);
+
+        if (hasVoted) {
+            res.send({
+                status: 'success',
+                message: 'ya ha votado o es el creador de la publicacion',
+                data: hasVoted
+            })
+        }
+
         const ratingId = await addVote(id, linkId, rating);
 
         res.send({
@@ -61,15 +71,14 @@ const getAverageRatings = async (req, res, next) => {
     }
 }
 
-
 const getUserVote = async (req, res, next) => {
     try {
         const userId = req.auth.id;
-        const { id } = req.params;
+        const { id: linkId } = req.params;
 
-        await schema.validateAsync(id);
+        await schema.validateAsync(linkId);
 
-        const hasVoted = await checkVoted(userId, id);
+        const hasVoted = await checkVoted(userId, linkId);
 
         res.send({
             status: 'success',

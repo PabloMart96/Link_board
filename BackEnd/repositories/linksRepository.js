@@ -9,7 +9,8 @@ const getAllLinks = async () => {
         connection = await getConnection();
 
         const [result] = await connection.query(`
-        SELECT l.id, l.user_id,  l.url, l.titulo, l.description, l.created_at, u.username, u.email, u.image, ROUND(AVG(rating)) as media FROM links l left JOIN users u ON l.user_id=u.id left JOIN ratings r ON r.link_id= l.id GROUP BY l.id  ORDER BY l.created_at DESC
+        SELECT l.id, l.user_id,  l.url, l.titulo, l.description, l.created_at, u.username, u.email, u.image, ROUND(AVG(rating)) as media, COUNT(link_id) AS votes FROM links l left JOIN users u 
+        ON l.user_id=u.id left JOIN ratings r ON r.link_id= l.id GROUP BY l.id  ORDER BY l.created_at DESC
         `);
         return result;
     } finally {
@@ -89,6 +90,7 @@ const getLinksByUserId = async (id) => {
         if (connection) connection.release();
     }
 };
+
 
 module.exports = {
     getAllLinks,
