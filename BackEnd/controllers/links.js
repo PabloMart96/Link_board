@@ -1,5 +1,5 @@
 const Joi = require('joi');
-const { getAllLinks, createLink, getLinkById, deleteLinkById } = require("../repositories/linksRepository");
+const { getAllLinks, createLink, getLinkById, deleteLinkById, updateLinkById } = require("../repositories/linksRepository");
 const { generateError } = require('../helpers');
 
 //Crea un esquema de validacion con el paquete Joi
@@ -48,6 +48,34 @@ const newLinkController = async (req, res, next) => {
   }
 };
 
+const updateLinkController = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const { body } = req;
+    await schema.validateAsync(body);
+    const { url, titulo, description } = body;
+    console.log(id);
+    const userId = req.auth.id;
+
+    const link = await getLinkById(id);
+    
+    if (userId !== link.user_id) {
+      throw generateError('Estás tratando de editar un link que no es tuyo!!', 401);
+    }
+
+    await updateLinkById({ id, url, titulo, description });
+
+    res.send({
+      status: 'success',
+      message: `El link con id: ${id} fue editado exitosamente!!`,
+      data: { url, titulo, description },
+    });
+
+  } catch (error) {
+    next(error);
+  }
+};
+
 //Borra una publicacion de un usuario registrado
 const deleteLinkController = async (req, res, next) => {
   try {
@@ -57,10 +85,7 @@ const deleteLinkController = async (req, res, next) => {
 
     const link = await getLinkById(id);
     const { url, titulo } = link;
-    if (!link) {
-      throw generateError('El link no existe', 400);
-    }
-
+    
     if (userId !== link.user_id) {
       throw generateError('Estas tratando de borrar un link que no es tuyo!!', 401);
     }
@@ -79,8 +104,27 @@ const deleteLinkController = async (req, res, next) => {
 };
 
 
+//Devuelve el link por ID
+const getSingleLinkController = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    
+    const link = await getLinkById(id);
+
+    res.send({
+      status: 'success',
+      data: link,
+    });
+
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   getLinksController,
   newLinkController,
   deleteLinkController,
+  getSingleLinkController,
+  updateLinkController,
 }

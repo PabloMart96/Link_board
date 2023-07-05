@@ -1,3 +1,20 @@
+export const registerUserService = async ({ username, email, password}) => {
+    const response = await fetch(`http://localhost:3000/user`, {
+        method: "POST",
+        body: JSON.stringify({ username, email, password }),
+        headers: {
+            "Content-Type": "application/json",
+        },
+    });
+
+    const json = await response.json();
+
+    if(!response.ok){
+        throw new Error(json.message);
+    }
+    return json.access;
+};
+
 export const loginUserService = async ({ email, password }) => {
     const response = await fetch(`http://localhost:3000/user/login`, {
         method: "POST",
@@ -14,6 +31,7 @@ export const loginUserService = async ({ email, password }) => {
 
     return json.access;
 };
+
 export const getMyDataService = async (token) => {
     const response = await fetch(`http://localhost:3000/user/profile`, {
         headers: {
@@ -59,7 +77,23 @@ export const getLinksByIdService = async (id, token) => {
     }
 
     return json.data;
-}
+};
+
+export const getSingleLinkService = async (id, token) => {
+    const response = await fetch(`http://localhost:3000/links/link-detail/${id}`, {
+        headers: {
+            Authorization: token,
+        }
+    });
+
+    const json = await response.json();
+
+    if (!response.ok) {
+        throw new Error(json.message);
+    }
+
+    return json.data;
+};
 
 export const getAllLinksService = async (token) => {
     const response = await fetch(`http://localhost:3000/links`, {
@@ -73,9 +107,7 @@ export const getAllLinksService = async (token) => {
     if (!response.ok) {
         throw new Error(json.message);
     }
-
-
-
+    
     return json.data;
 };
 
@@ -95,7 +127,7 @@ export const UpdateUserService = async ({ token, data }) => {
     }
 
     return json.message;
-}
+};
 
 export const sendPostService = async ({ token, data }) => {
     const response = await fetch(`http://localhost:3000/links/create`, {
@@ -113,7 +145,7 @@ export const sendPostService = async ({ token, data }) => {
     }
 
     return json.data;
-}
+};
 
 export const deletePostService = async ({ id, token }) => {
     const response = await fetch(`http://localhost:3000/links/${id}`, {
@@ -167,3 +199,24 @@ export const checkVoted = async (linkId, token) => {
 
     return json.data;
 }
+
+export const UpdateLinkService = async ({ id, token, data }) => {
+    const response = await fetch(`http://localhost:3000/links/edit/${id}`, {
+      method: "PUT",
+      headers: {
+        Authorization: token,
+        "Content-Type": "application/json", 
+      },
+      body: JSON.stringify(data), 
+    });
+  
+    const json = await response.json();
+  
+    if (!response.ok) {
+      throw new Error(json.message);
+    }
+  
+    return json.message;
+  };
+
+

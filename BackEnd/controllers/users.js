@@ -33,10 +33,18 @@ const newUserController = async (req, res, next) => {
 
     const id = await createUser(username, email, password);
 
+    const { JWT_SECRET } = process.env;
+    const payload = { id, username, email };
+
+    const token = jwt.sign(payload, JWT_SECRET, {
+      expiresIn: '30d',
+    });
+
     res.send({
       status: 'success',
       message: `Usuario creado con id: ${id}`,
       data: { username, email },
+      access: token,
     });
 
   } catch (error) {
@@ -180,7 +188,7 @@ const updateUser = async (req, res, next) => {
         await fs.unlink(`${pathPicture}/${image}`);
       }
 
-      const imageName = `${nanoid(24)}-${picture.name}`;
+      const imageName = `${nanoid(24)}.jpg`;
       const pathImage = `${pathPicture}/${imageName}`;
 
       //Redimensionamos la imagen
@@ -235,7 +243,7 @@ const imagenController = async (req, res, next) => {
       await fs.unlink(`${pathPicture}/${image}`);
     }
 
-    const imageName = `${nanoid(24)}-${picture.name}`;
+    const imageName = `${nanoid(24)}.jpg`;
     const pathImage = `${pathPicture}/${imageName}`;
 
     //Redimensionamos la imagen

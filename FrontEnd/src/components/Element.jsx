@@ -29,7 +29,7 @@ export const Element = ({ link, removePost }) => {
 
     return (
         <article>
-            <h4>{link.titulo}</h4>
+            <h4><Link to={`/link-detail/${link.id}`}>{link.titulo}</Link></h4>
             <p>{link.url}</p>
             <p>{link.description}</p>
             <p>
@@ -46,13 +46,16 @@ export const Element = ({ link, removePost }) => {
 
             {user && user.id === link.user_id ? (
                 <section>
-                    <button
-                        onClick={() => {
-                            if (window.confirm("Are you sure?")) deletePost(link.id);
-                        }}
-                    >
-                        Eliminar
-                    </button>
+                    <Link to={`/links/edit/${link.id}`}>
+                        <button>Editar</button>
+                    </Link>
+                        <button
+                            onClick={() => {
+                                if (window.confirm("Are you sure?")) deletePost(link.id);
+                            }}
+                        >
+                            Eliminar
+                        </button>
                     {error ? <p>{error}</p> : null}
                 </section>
             ) : null}
