@@ -1,4 +1,39 @@
-.element {
+.list {
   list-style: none;
-  margin-top: 16px;
+  margin: 12px 0px;
+}
+
+.element {
+  width: 90%;
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  gap: 2rem;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.element .titleImage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.element .titleImage .linkTitle {
+  text-decoration: none;
+  font-size: 24px;
+  color: inherit;
+  color: #ccc;
+  font-weight: bold;
+}
+
+.element img {
+  width: 200px;
+  border-radius: 25px;
+}
+
+.element .rest {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
 }

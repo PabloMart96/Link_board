@@ -11,8 +11,8 @@ import UpdateLinkPage from '../pages/UpdateLinkPage';
 export const AppRouter = () => {
     return (
         <Routes>
-            <Route path='/login' element={<LoginPage />} />
             <Route path='/' element={<HomePage />} />
+            <Route path='/login' element={<LoginPage />} />
             <Route path='/register' element={<RegisterPage />} />
             <Route path='/user/:id' element={<ProfilePage />} />
             <Route path='/update' element={<UpdateProfilePage />} />

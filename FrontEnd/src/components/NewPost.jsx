@@ -68,7 +68,7 @@ export const NewPost = ({ addPost }) => {
                     ) : null}
                 </fieldset>
                 <button className="btn">Publicar</button>
-                {error ? <p>{error}</p> : null}
+                {error ? <p className="error">{error}</p> : null}
                 {loading ? <p>publicando...</p> : null}
             </form>
         </section>

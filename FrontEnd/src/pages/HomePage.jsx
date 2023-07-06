@@ -5,7 +5,7 @@ import { AuthContext } from '../context/AuthContext';
 import { Error } from '../components/Error';
 import { Loading } from '../components/Loading';
 import { NewPost } from '../components/NewPost';
-import { Box } from '@mui/material';
+import '../styles/homePage.css';
 
 export const HomePage = () => {
 
@@ -18,14 +18,14 @@ export const HomePage = () => {
     return (
         <>
             {user ?
-                <Box>
+                <div className='principal'>
                     <NewPost addPost={addPost} />
-                    <Box>
+                    <section className='list'>
                         <h2>Publicaciones Recientes</h2>
                         <LinkList links={links} removePost={removePost} />
-                    </Box>
+                    </section>
 
-                </Box> : null
+                </div> : null
             }
         </>
 

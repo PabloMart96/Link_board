@@ -1,13 +1,7 @@
-body {
-  border: 0;
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  min-height: 100vh;
-  background: linear-gradient(to bottom, #134e5e, #71b280);
-}
 .center {
   position: relative;
+  max-width: 500px;
+  margin: 0 auto;
   margin-top: 80px;
   padding: 50px 50px;
   background: #fff;
@@ -26,7 +20,7 @@ body {
 }
 .center .inputbox {
   position: relative;
-  width: 300px;
+  min-width: 250px;
   height: 50px;
   margin-bottom: 50px;
 }
@@ -42,9 +36,8 @@ body {
   border-radius: 10px;
   font-size: 1.2em;
 }
-.center .inputbox:last-child {
-  margin-bottom: 0;
-  padding-bottom: 0;
+.center div.inputbox {
+  margin: 0;
 }
 
 .center .inputbox .label {
@@ -64,7 +57,7 @@ body {
   opacity: 1;
 }
 
-.center .inputbox .btn {
+.center .btn {
   padding: 10px;
   border-radius: 10px;
   width: 50%;
@@ -75,6 +68,17 @@ body {
 }
 .center .inputbox .btn:hover {
   background: linear-gradient(45deg, greenyellow, dodgerblue);
+}
+
+.center .text {
+  margin: 10px 10px;
+  text-align: end;
+}
+
+.center .text a {
+  color: #4caf50;
+  font-size: 16px;
+  text-decoration: none;
 }
 
 .error {

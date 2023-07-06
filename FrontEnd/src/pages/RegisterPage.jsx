@@ -73,10 +73,13 @@ export const RegisterPage = () => {
           />
           <label className="label" htmlFor="password">Password</label>
         </fieldset>
-
         <div className="inputbox">
-          <button className="btn">Sign Up</button>
+          <button className="btn">Sing Up</button>
         </div>
+        <div className="text">
+          <a href={'/login'}>Sign In</a>
+        </div>
+
         {error ? <p className="error">{error}</p> : null}
       </form>
     </section>
