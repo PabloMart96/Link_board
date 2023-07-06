@@ -25,8 +25,7 @@ export const useLinks = (id) => {
         }
     };
 
-
-    useEffect(() => {
+    useEffect(() => {        
         loadLinks();
     }, [id, token]);
 

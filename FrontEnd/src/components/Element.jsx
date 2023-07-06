@@ -29,6 +29,8 @@ export const Element = ({ link, removePost }) => {
         }
     };
 
+   
+
     return (
         <article>
             <Box>
@@ -39,7 +41,7 @@ export const Element = ({ link, removePost }) => {
             <p>{link.description}</p>
             <p>
                 By <Link to={`/user/${link.user_id}`}>{link.username}</Link> on{" "}
-                {new Date(link.created_at).toLocaleDateString()}
+                {new Date(link.created_at).toUTCString()}
             </p>
             <Box>
                 <Vote linkId={link.id} initialValue={parseInt(link.media)} />

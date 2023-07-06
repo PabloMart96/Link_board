@@ -16,9 +16,9 @@ export const NewPost = ({ addPost }) => {
         try {
             setLoading(true);
             const data = new FormData(e.target);
-            const post = await sendPostService({ data, token });
+            await sendPostService({ data, token });
 
-            addPost(post);
+            addPost();
 
             e.target.reset();
             setPicture(null);

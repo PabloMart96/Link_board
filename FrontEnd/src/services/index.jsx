@@ -220,4 +220,44 @@ export const UpdateLinkService = async ({ id, token, data }) => {
     return json.message;
 };
 
+  export const getCommentsByLinkIdService = async (linkId, token) => {  
+    const response = await fetch(`http://localhost:3000/links/comments/${linkId}`, {
+        headers: {
+            Authorization: token,
+        }
+    });
+
+    const json = await response.json();
+  
+    if (!response.ok) {
+      throw new Error(json.message);
+    }
+  
+    return json.data;
+  };
+  
+  export const createCommentService = async (linkId, comment_Text, token) => {
+    const response = await fetch(`http://localhost:3000/links/comments/${linkId}`, {
+      method: "POST",
+      body: JSON.stringify({ comment_text: comment_Text }),
+      headers: {
+        Authorization: token,
+        "Content-Type": "application/json",
+      },
+      
+    });
+  
+    const json = await response.json();
+  
+    if (!response.ok) {
+      throw new Error(json.message);
+    }
+  
+    return json.data;
+  };
+  
+  
+  
+  
+
 

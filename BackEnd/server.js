@@ -16,6 +16,7 @@ app.use(express.json()); //Para leer formatos JSON
 app.use(morgan('dev')); //Generar registro de acceso en la terminal
 app.use(cors()); //Habilita el acceso a la Api desde cualquier origen
 app.use(express.static(path.join(__dirname, 'public/profile')));
+app.use(express.static(path.join(__dirname, 'public/links')));
 
 //Rutas de user
 app.use('/user', userRoutes);
