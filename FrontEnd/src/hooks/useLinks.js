@@ -9,28 +9,31 @@ export const useLinks = (id) => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
 
+    const loadLinks = async () => {
+        try {
+            setLoading(true);
+            const data = id
+                ? await getLinksByIdService(id, token)
+                : await getAllLinksService(token);
+
+            setLinks(data);
+        } catch (error) {
+            setError(error.message);
+        } finally {
+            setLoading(false);
+        }
+    };
+
     useEffect(() => {
-        const loadLinks = async () => {
-            try {
-                setLoading(true);
-                const data = id
-                    ? await getLinksByIdService(id, token)
-                    : await getAllLinksService(token);
-
-                setLinks(data);
-            } catch (error) {
-                setError(error.message);
-            } finally {
-                setLoading(false);
-            }
-        };
-
+        
         loadLinks();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [id, token]);
 
 
     const addPost = (data) => {
-        setLinks([data, ...links]);
+        setLinks([data, ...links])
+        loadLinks();
     };
 
     const removePost = (id) => {

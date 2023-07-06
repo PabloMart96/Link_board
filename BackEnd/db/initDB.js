@@ -11,16 +11,23 @@ async function main() {
 
     console.log('Borrando tablas existentes');
 
-    await connection.query(
-      'ALTER TABLE ratings DROP FOREIGN KEY ratings_ibfk_2'
-    );
-    await connection.query(
-      'ALTER TABLE ratings DROP FOREIGN KEY ratings_ibfk_1'
-    );
+    // await connection.query(
+    //   'ALTER TABLE ratings DROP FOREIGN KEY fk_link_user'
+    // );
+    // await connection.query(
+    //   'ALTER TABLE ratings DROP FOREIGN KEY links_ibfk_1'
+    // );
+    // await connection.query(
+    //   'ALTER TABLE comments DROP FOREIGN KEY comments_ibfk_1'
+    // );
+    // await connection.query(
+    //   'ALTER TABLE comments DROP FOREIGN KEY comments_ibfk_2'
+    // );
 
     await connection.query('DROP TABLE IF EXISTS links');
     await connection.query('DROP TABLE IF EXISTS users');
     await connection.query('DROP TABLE IF EXISTS ratings');
+    await connection.query('DROP TABLE IF EXISTS comments');
 
     console.log('Creando las tablas de la base de datos');
 
@@ -58,6 +65,18 @@ async function main() {
       FOREIGN KEY (link_id) REFERENCES links(id) ON DELETE CASCADE
   );
     `);
+
+    await connection.query(`
+    CREATE TABLE comments (
+      id INTEGER PRIMARY KEY AUTO_INCREMENT,
+      user_id INTEGER NOT NULL,
+      link_id INTEGER NOT NULL,
+      comment_text TEXT NOT NULL,
+      created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+      FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+      FOREIGN KEY (link_id) REFERENCES links(id) ON DELETE CASCADE
+    );
+  `);
 
     // await connection.query(
     //   `INSERT INTO users (username, email, password, image, description) 

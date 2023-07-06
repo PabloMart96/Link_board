@@ -52,6 +52,7 @@ const getLinkById = async (id) => {
         if (result.length === 0) {
             throw generateError(`El link con ID: ${id} no existe`, 404);
         }
+
         return result[0];
     } finally {
         if (connection) connection.release();
