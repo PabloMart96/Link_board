@@ -50,10 +50,9 @@ export const NewPost = ({ addPost }) => {
 
                 </fieldset>
                 <fieldset className="image-field">
-                    {/* <label htmlFor="image">Imagen:</label> */}
                     <input
                         type="file"
-                        name="image"
+                        name="picture"
                         id="image"
                         onChange={(e) => setPicture(e.target.files[0])}
                     />
