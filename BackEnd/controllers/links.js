@@ -54,7 +54,6 @@ const updateLinkController = async (req, res, next) => {
     const { body } = req;
     await schema.validateAsync(body);
     const { url, titulo, description } = body;
-    console.log(id);
     const userId = req.auth.id;
 
     const link = await getLinkById(id);

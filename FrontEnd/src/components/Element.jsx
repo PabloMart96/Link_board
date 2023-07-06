@@ -27,6 +27,8 @@ export const Element = ({ link, removePost }) => {
         }
     };
 
+   
+
     return (
         <article>
             <h4><Link to={`/link-detail/${link.id}`}>{link.titulo}</Link></h4>
@@ -34,7 +36,7 @@ export const Element = ({ link, removePost }) => {
             <p>{link.description}</p>
             <p>
                 By <Link to={`/user/${link.user_id}`}>{link.username}</Link> on{" "}
-                {new Date(link.created_at).toLocaleString()}
+                {new Date(link.created_at).toUTCString()}
             </p>
             <Box sx={{
                 '& > legend': { mt: 2 },
