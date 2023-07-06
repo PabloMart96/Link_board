@@ -28,7 +28,11 @@ const useComments = (linkId) => {
         loadComments();
     }, [linkId, token]);
 
-    return { comments, loading, error };
+    const removeComment = (id) => {
+        setComments(comments.filter((comment) => comment.id !== id));
+    };
+
+    return { comments, removeComment, loading, error };
 };
 
 export default useComments;

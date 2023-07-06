@@ -2,7 +2,7 @@ const express = require('express');
 const validateAuth = require('../middlewares/validateAuth');
 const { getLinksController, newLinkController, deleteLinkController, getSingleLinkController, updateLinkController } = require('../controllers/links');
 const { registerVoteController, getAverageRatings, getUserVote } = require('../controllers/ratings');
-const { getCommentsController, createCommentController } = require('../controllers/comments');
+const { getCommentsController, createCommentController, deleteCommentController } = require('../controllers/comments');
 
 const linkRoutes = express.Router();
 
@@ -18,6 +18,7 @@ linkRoutes.route('/link-detail/:id').all(validateAuth).get(getSingleLinkControll
 linkRoutes.route('/edit/:id').all(validateAuth).put(updateLinkController); //Permite editar un link
 linkRoutes.route('/comments/:id').all(validateAuth).get(getCommentsController); //Muestra los comentarios de un link
 linkRoutes.route('/comments/:id').all(validateAuth).post(createCommentController); //Crea un comentario para un link
+linkRoutes.route('/comments/:id').all(validateAuth).delete(deleteCommentController);
 
 
 module.exports = linkRoutes;
