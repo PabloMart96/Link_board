@@ -14,6 +14,6 @@ linkRoutes.route('/').all(validateAuth).get(getLinksController); //Mostrar todos
 linkRoutes.route('/:id/average').all(validateAuth).get(getAverageRatings); //Mostrar la media de las valoraciones de una publicacion
 linkRoutes.route('/:id').all(validateAuth).get(getUserVote); //Mostrar si un usuario ha votado en un enlace
 linkRoutes.route('/link-detail/:id').all(validateAuth).get(getSingleLinkController); // Mostrar un enlace publicado por id
-linkRoutes.route('/edit/:id').all(validateAuth).put(updateLinkController);
+linkRoutes.route('/edit/:id').all(validateAuth).put(updateLinkController); //Actualizar una publicacion.
 
 module.exports = linkRoutes;

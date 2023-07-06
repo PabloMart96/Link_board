@@ -10,6 +10,7 @@ async function main() {
     connection = await getConnection();
 
     console.log('Borrando tablas existentes');
+
     await connection.query(
       'ALTER TABLE ratings DROP FOREIGN KEY ratings_ibfk_2'
     );
