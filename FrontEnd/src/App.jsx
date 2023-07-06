@@ -2,7 +2,6 @@ import { Header } from "./components/Header";
 import { Footer } from "./components/Footer";
 import { AppRouter } from "./router/AppRouter";
 import { Box, Container } from "@mui/material";
-import "./App.css";
 
 function App() {
   return (
@@ -10,8 +9,11 @@ function App() {
       sx={{
         display: "flex",
         flexDirection: "column",
-        backgroundColor: "secondary.main",
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundImage: 'linear-gradient(to bottom, #134e5e, #71b280)',
         minHeight: "100vh",
+        position: 'relative',
       }}
     >
       <Header />
@@ -23,12 +25,12 @@ function App() {
           flexGrow: 1,
           justifyContent: "center",
           alignItems: "start",
-          marginTop: "32px",
+          margin: '2rem',
         }}
       >
         <AppRouter />
       </Container>
-      <Box component="footer" sx={{ p: 2 }}>
+      <Box component="footer" sx={{ position: 'absolute', bottom: 0, padding: 2, background: 'transparent' }}>
         <Footer />
       </Box>
     </Box>

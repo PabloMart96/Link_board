@@ -32,72 +32,72 @@ export const UpdateProfilePage = () => {
         e.preventDefault();
 
         try {
-        const data = new FormData(e.target);
-        await UpdateUserService({ token, data });
+            const data = new FormData(e.target);
+            await UpdateUserService({ token, data });
 
-        navigate("/");
+            navigate("/");
         } catch (error) {
-        setError(error.message);
+            setError(error.message);
         }
     };
 
     return (
         <section>
-        <h1>Actualizar Usuario</h1>
-        <form onSubmit={handleForm}>
-            <fieldset>
-            <label htmlFor="image">Imagen</label>
-            <input
-                type="file"
-                name="picture"
-                id="image"
-                onChange={(e) => setPicture(e.target.files[0])}
-            />
-            {picture ? (
-                <figure>
-                <img
-                    src={URL.createObjectURL(picture)}
-                    style={{ width: "100px" }}
-                    alt="Preview"
-                />
-                </figure>
-            ) : null}
-            </fieldset>
-            <fieldset>
-            <label htmlFor="username">Nombre de usuario</label>
-            <input
-                type="text"
-                name="username"
-                id="username"
-                value={username}
-                required
-                onChange={(e) => setUsername(e.target.value)}
-            />
-            </fieldset>
-            <fieldset>
-            <label htmlFor="email">Email</label>
-            <input
-                type="email"
-                name="email"
-                id="email"
-                value={email}
-                required
-                onChange={(e) => setEmail(e.target.value)}
-            />
-            </fieldset>
-            <fieldset>
-            <label htmlFor="description">Descripción</label>
-            <textarea
-                type="text"
-                name="description"
-                id="description"
-                value={description}
-                onChange={(e) => setDescription(e.target.value)}
-            />
-            </fieldset>
-            <button>Actualizar</button>
-            {error ? <p>{error}</p> : null}
-        </form>
+            <h1>Actualizar Usuario</h1>
+            <form onSubmit={handleForm}>
+                <fieldset>
+                    <label htmlFor="image">Imagen</label>
+                    <input
+                        type="file"
+                        name="picture"
+                        id="image"
+                        onChange={(e) => setPicture(e.target.files[0])}
+                    />
+                    {picture ? (
+                        <figure>
+                            <img
+                                src={URL.createObjectURL(picture)}
+                                style={{ width: "100px" }}
+                                alt="Preview"
+                            />
+                        </figure>
+                    ) : null}
+                </fieldset>
+                <fieldset>
+                    <label htmlFor="username">Nombre de usuario</label>
+                    <input
+                        type="text"
+                        name="username"
+                        id="username"
+                        value={username}
+                        required
+                        onChange={(e) => setUsername(e.target.value)}
+                    />
+                </fieldset>
+                <fieldset>
+                    <label htmlFor="email">Email</label>
+                    <input
+                        type="email"
+                        name="email"
+                        id="email"
+                        value={email}
+                        required
+                        onChange={(e) => setEmail(e.target.value)}
+                    />
+                </fieldset>
+                <fieldset>
+                    <label htmlFor="description">Descripción</label>
+                    <textarea
+                        type="text"
+                        name="description"
+                        id="description"
+                        value={description || ""}
+                        onChange={(e) => setDescription(e.target.value)}
+                    />
+                </fieldset>
+                <button>Actualizar</button>
+                {error ? <p>{error}</p> : null}
+            </form>
         </section>
     );
 };

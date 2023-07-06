@@ -6,6 +6,7 @@ import { PropTypes } from 'prop-types';
 import Box from '@mui/material/Box';
 import { Typography } from "@mui/material";
 import { Vote } from "./Vote";
+import imageDefault from '../assets/default.jpg';
 
 export const Element = ({ link, removePost }) => {
 
@@ -13,6 +14,7 @@ export const Element = ({ link, removePost }) => {
     const { token, user } = useContext(AuthContext);
     const [error, setError] = useState("");
 
+    const imageSrc = link.image ? `http://localhost:3000/${link.image}` : imageDefault;
 
     const deletePost = async (id) => {
         try {
@@ -31,18 +33,18 @@ export const Element = ({ link, removePost }) => {
 
     return (
         <article>
-            <h4><Link to={`/link-detail/${link.id}`}>{link.titulo}</Link></h4>
+            <Box>
+                <img src={imageSrc} alt="image" />
+            </Box>
+            <Typography ><Link to={`/link-detail/${link.id}`}>{link.titulo}</Link></Typography>
             <p>{link.url}</p>
             <p>{link.description}</p>
             <p>
                 By <Link to={`/user/${link.user_id}`}>{link.username}</Link> on{" "}
                 {new Date(link.created_at).toUTCString()}
             </p>
-            <Box sx={{
-                '& > legend': { mt: 2 },
-            }}>
+            <Box>
                 <Vote linkId={link.id} initialValue={parseInt(link.media)} />
-                <Typography>Votos: {link.votes}</Typography>
 
             </Box>
 
@@ -51,13 +53,13 @@ export const Element = ({ link, removePost }) => {
                     <Link to={`/links/edit/${link.id}`}>
                         <button>Editar</button>
                     </Link>
-                        <button
-                            onClick={() => {
-                                if (window.confirm("Are you sure?")) deletePost(link.id);
-                            }}
-                        >
-                            Eliminar
-                        </button>
+                    <button
+                        onClick={() => {
+                            if (window.confirm("Are you sure?")) deletePost(link.id);
+                        }}
+                    >
+                        Eliminar
+                    </button>
                     {error ? <p>{error}</p> : null}
                 </section>
             ) : null}

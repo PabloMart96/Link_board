@@ -2,12 +2,12 @@ import { useContext, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { sendPostService } from "../services";
 import { PropTypes } from 'prop-types';
-import { useNavigate } from "react-router-dom";
+import '../styles/newLink.css';
 
 export const NewPost = ({ addPost }) => {
-    const navigate = useNavigate();
     const { token } = useContext(AuthContext);
     const [loading, setLoading] = useState(false);
+    const [picture, setPicture] = useState(null);
     const [error, setError] = useState("");
 
     const handleForm = async (e) => {
@@ -21,7 +21,7 @@ export const NewPost = ({ addPost }) => {
             addPost();
 
             e.target.reset();
-            navigate('/');
+            setPicture(null);
         } catch (error) {
             setError(error.message);
         } finally {
@@ -29,7 +29,7 @@ export const NewPost = ({ addPost }) => {
         }
     };
     return (
-        <>
+        <section className="newPublication">
             <h2>Añadir Publicación</h2>
             <form onSubmit={handleForm}>
                 <fieldset>
@@ -43,16 +43,36 @@ export const NewPost = ({ addPost }) => {
                 <fieldset>
                     <label>Descripción</label>
                     <textarea
-                        type="text"
+                        type="textarea"
                         name="description"
                         id="description"
                     />
+
                 </fieldset>
-                <button>Publicar</button>
+                <fieldset className="image-field">
+                    {/* <label htmlFor="image">Imagen:</label> */}
+                    <input
+                        type="file"
+                        name="image"
+                        id="image"
+                        onChange={(e) => setPicture(e.target.files[0])}
+                    />
+                    <label htmlFor="image">Cargar imagen</label>
+                    {picture ? (
+                        <figure>
+                            <img
+                                src={URL.createObjectURL(picture)}
+                                style={{ width: "100px", borderRadius: '5px' }}
+                                alt="Preview"
+                            />
+                        </figure>
+                    ) : null}
+                </fieldset>
+                <button className="btn">Publicar</button>
                 {error ? <p>{error}</p> : null}
                 {loading ? <p>publicando...</p> : null}
             </form>
-        </>
+        </section>
     );
 };
 

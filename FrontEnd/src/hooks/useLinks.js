@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useContext, useEffect, useState } from "react";
 import { getAllLinksService, getLinksByIdService } from "../services";
 import { AuthContext } from "../context/AuthContext";
@@ -24,15 +25,13 @@ export const useLinks = (id) => {
         }
     };
 
-    useEffect(() => {
-        
+    useEffect(() => {        
         loadLinks();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [id, token]);
 
 
     const addPost = (data) => {
-        setLinks([data, ...links])
+        setLinks([data, ...links]);
         loadLinks();
     };
 

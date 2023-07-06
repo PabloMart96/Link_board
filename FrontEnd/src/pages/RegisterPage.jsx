@@ -3,12 +3,11 @@ import { useState } from "react"
 import { useNavigate } from "react-router-dom";
 import { registerUserService } from "../services";
 import { AuthContext } from "../context/AuthContext";
-import { Slider } from "../components/Slider";
 import "../styles/login&register.css";
 
 export const RegisterPage = () => {
   const navigate = useNavigate();
-  
+
   const { login } = useContext(AuthContext);
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
@@ -17,32 +16,29 @@ export const RegisterPage = () => {
 
   const handleForm = async (e) => {
     e.preventDefault();
-  
-        try{
-            //Con este trozo de codigo se logea al usuario despues de registrarse
-            
-            const response = await registerUserService({ username, email, password });
-            const BearerToken = `Bearer ${response}`;
-            login(BearerToken);
-            navigate("/");
 
-            //Con este trozo no se logea y redirige al login
-            // await registerUserService({ username, email, password });
-            // navigate("/login");
+    try {
+      //Con este trozo de codigo se logea al usuario despues de registrarse
 
-        } catch (error){
-            setError(error.message);
-        }
-    };
+      const response = await registerUserService({ username, email, password });
+      const BearerToken = `Bearer ${response}`;
+      login(BearerToken);
+      navigate("/");
+
+      //Con este trozo no se logea y redirige al login
+      // await registerUserService({ username, email, password });
+      // navigate("/login");
+
+    } catch (error) {
+      setError(error.message);
+    }
+  };
 
   return (
-    <section className="formSection">
-      <img src="../assets/userIcon.png" alt="user" />
+    <section className="center">
       <form onSubmit={handleForm}>
-        <h1 className="formTitle">Register</h1>
-
-        <fieldset>
-          <label htmlFor="username">Username:</label>
+        <h1>Register</h1>
+        <fieldset className="inputbox">
           <input
             type="text"
             name="username"
@@ -51,10 +47,10 @@ export const RegisterPage = () => {
             required
             onChange={(e) => setUsername(e.target.value)}
           />
+          <label className="label" htmlFor="username">Username</label>
         </fieldset>
 
-        <fieldset>
-          <label htmlFor="email">Email:</label>
+        <fieldset className="inputbox">
           <input
             type="email"
             name="email"
@@ -63,22 +59,26 @@ export const RegisterPage = () => {
             required
             onChange={(e) => setEmail(e.target.value)}
           />
+          <label className="label" htmlFor="email">Email</label>
         </fieldset>
 
-        <fieldset>
-          <label htmlFor="password">Password:</label>
+        <fieldset className="inputbox">
           <input
             type="password"
             name="password"
             id="password"
             value={password}
+            required
             onChange={(e) => setPassword(e.target.value)}
           />
+          <label className="label" htmlFor="password">Password</label>
         </fieldset>
-        <button>Sign Up</button>
-        {error ? <p>{error}</p> : null}
+
+        <div className="inputbox">
+          <button className="btn">Sign Up</button>
+        </div>
+        {error ? <p className="error">{error}</p> : null}
       </form>
-      <Slider />
     </section>
   );
 };

@@ -2,7 +2,6 @@ import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { loginUserService } from "../services";
 import { AuthContext } from "../context/AuthContext";
-import { Slider } from "../components/Slider";
 import "../styles/login&register.css";
 
 export const LoginPage = () => {
@@ -29,12 +28,10 @@ export const LoginPage = () => {
   };
 
   return (
-    <section className="formSection">
-      <img src="../assets/userIcon.png" alt="user" />
+    <section className="center">
       <form onSubmit={handleForm}>
-        <h1 className="formTitle">Login</h1>
-        <fieldset>
-          <label htmlFor="email">Email</label>
+        <h1>Login</h1>
+        <fieldset className="inputbox">
           <input
             type="email"
             name="email"
@@ -43,9 +40,9 @@ export const LoginPage = () => {
             required
             onChange={(e) => setEmail(e.target.value)}
           />
+          <label className="label" htmlFor="email">Email</label>
         </fieldset>
-        <fieldset>
-          <label htmlFor="password">Password</label>
+        <fieldset className="inputbox">
           <input
             type="password"
             name="password"
@@ -54,11 +51,13 @@ export const LoginPage = () => {
             required
             onChange={(e) => setPassword(e.target.value)}
           />
+          <label className="label" htmlFor="password">Password</label>
         </fieldset>
-        <button>Login</button>
-        {error ? <p>{error}</p> : null}
+        <div className="inputbox">
+          <button className="btn">Login</button>
+        </div>
+        {error ? <p className="error">{error}</p> : null}
       </form>
-      <Slider />
     </section>
   );
 };

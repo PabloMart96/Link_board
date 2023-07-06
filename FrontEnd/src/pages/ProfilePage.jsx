@@ -5,13 +5,14 @@ import { UserLinks } from "../components/UserLinks";
 import { useUser } from "../hooks/useUser";
 import { Avatar, Grid, Box, Typography } from "@mui/material";
 import PersonIcon from '@mui/icons-material/Person';
+import imageDefault from '../assets/default.jpg';
 
 export const ProfilePage = () => {
 
     const { id } = useParams();
     const { user, loading, error, removePost } = useUser(id);
 
-    const imagenSrc = user.image ? `http://localhost:3000/${user.image}` : `../assets/default.jpg`;
+    const imagenSrc = user.image ? `http://localhost:3000/${user.image}` : imageDefault;
 
     if (loading) return <Loading />
     if (error) return <Error message={error} />
@@ -23,7 +24,7 @@ export const ProfilePage = () => {
             direction="column"
             alignItems="center"
             justifyContent="start"
-            sx={{ minHeight: '83vh', backgroundColor: 'primary.main', padding: 4, borderRadius: 2 }}>
+            sx={{ minHeight: '83vh', padding: 4, borderRadius: 2 }}>
             <Grid
                 item
                 className='box-shadow'
