@@ -81,6 +81,7 @@ export const UpdateProfilePage = () => {
                         name="email"
                         id="email"
                         value={email}
+                        readOnly
                         required
                         onChange={(e) => setEmail(e.target.value)}
                     />
