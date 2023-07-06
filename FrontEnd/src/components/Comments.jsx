@@ -74,14 +74,10 @@ export const Comments = ({ linkId, removeComment }) => {
           comments.map((comment) => (
             <ul key={comment.id}>
               <li>{comment.comment_text}
- 
-
-                     {comment.user_id === user.id && (
+                    {comment.user_id === user.id && (
                       <button onClick={() => 
                       {if (window.confirm("Are you sure?"))deleteComment(comment.id)}}>Borrar Comentario</button>
                     )}   
-                  
-
                   {error ? <p>{error}</p> : null}
               </li> 
             </ul>
