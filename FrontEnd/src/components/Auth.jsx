@@ -73,35 +73,35 @@ export const Auth = () => {
                 >
                     <MenuIcon />
                 </IconButton>
-                <Drawer anchor="right" open={open} onClose={toggleDrawer(false)} sx={{ backgroundColor: 'rgba(0, 0, 0, 0.3)', color: 'white' }}>
-                    <List>
-                        <ListItem sx={{ justifyContent: "flex-end" }}>
+                <Drawer anchor="right" open={open} onClose={toggleDrawer(false)}>
+                    <List sx={{ minHeight: '100vh', backgroundColor: 'rgba(34, 40, 49, 0.8)' }}>
+                        <ListItem sx={{ justifyContent: "flex-end", alignItems: 'center' }}>
                             <Button onClick={handleHomeClick}>
-                                <ListItemText primary="Inicio" />
+                                <ListItemText sx={{ color: 'white' }} primary="Inicio" />
                             </Button>
                             <ListItemIcon>
                                 <HomeIcon fontSize="medium" />
                             </ListItemIcon>
                         </ListItem>
-                        <ListItem sx={{ justifyContent: "flex-end" }}>
+                        <ListItem sx={{ justifyContent: "flex-end", alignItems: 'center' }}>
                             <Button onClick={handleProfileClick}>
-                                <ListItemText primary="Perfil" />
+                                <ListItemText sx={{ color: 'white' }} primary="Perfil" />
                             </Button>
                             <ListItemIcon>
                                 <AccountBoxIcon fontSize="medium" />
                             </ListItemIcon>
                         </ListItem>
-                        <ListItem sx={{ justifyContent: "flex-end" }}>
+                        <ListItem sx={{ justifyContent: "flex-end", alignItems: 'center' }}>
                             <Button onClick={handleUpdateClick}>
-                                <ListItemText primary="Actualizar" />
+                                <ListItemText sx={{ color: 'white' }} primary="Actualizar" />
                             </Button>
                             <ListItemIcon>
                                 <SettingsIcon fontSize="medium" />
                             </ListItemIcon>
                         </ListItem>
-                        <ListItem sx={{ justifyContent: "flex-end" }}>
+                        <ListItem sx={{ justifyContent: "flex-end", alignItems: 'center' }}>
                             <Button onClick={handleLogoutClick}>
-                                <ListItemText primary="Salir" />
+                                <ListItemText sx={{ color: 'white' }} primary="Salir" />
                             </Button>
                             <ListItemIcon>
                                 <PowerSettingsNewIcon fontSize="medium" />

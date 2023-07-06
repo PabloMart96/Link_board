@@ -6,6 +6,7 @@ const UpdateLinkPage = () => {
   const [updatedUrl, setUpdatedUrl] = useState("");
   const [updatedTitulo, setUpdatedTitulo] = useState("");
   const [updatedDescripcion, setUpdatedDescripcion] = useState("");
+  const [updatePicture, setUpdatePicture] = useState(null);
   const navigate = useNavigate();
   const { id } = useParams();
   // eslint-disable-next-line no-unused-vars
@@ -13,6 +14,7 @@ const UpdateLinkPage = () => {
     url: "",
     titulo: "",
     description: "",
+    image: null,
   });
 
   useEffect(() => {
@@ -36,16 +38,17 @@ const UpdateLinkPage = () => {
     e.preventDefault();
 
     try {
-      const data = {
-        url: updatedUrl,
-        titulo: updatedTitulo,
-        description: updatedDescripcion,
-      };
+      // const data = {
+      //   url: updatedUrl,
+      //   titulo: updatedTitulo,
+      //   description: updatedDescripcion,
+      // };
+
+      const data = new FormData(e.target);
 
       const token = localStorage.getItem("token");
       await UpdateLinkService({ id, token, data });
       navigate(`/`);
-     // navigate(`/link-detail/${id}`);
     } catch (error) {
       console.error(error);
     }
@@ -91,6 +94,24 @@ const UpdateLinkPage = () => {
           value={updatedDescripcion}
           onChange={handleDescripcionChange}
         />
+        <fieldset>
+          <label htmlFor="image">Imagen</label>
+          <input
+            type="file"
+            name="picture"
+            id="image"
+            onChange={(e) => setUpdatePicture(e.target.files[0])}
+          />
+          {updatePicture ? (
+            <figure>
+              <img
+                src={URL.createObjectURL(updatePicture)}
+                style={{ width: "100px" }}
+                alt="Preview"
+              />
+            </figure>
+          ) : null}
+        </fieldset>
         <button type="submit">Guardar Cambios</button>
       </form>
     </div>

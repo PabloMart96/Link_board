@@ -1,4 +1,4 @@
-export const registerUserService = async ({ username, email, password}) => {
+export const registerUserService = async ({ username, email, password }) => {
     const response = await fetch(`http://localhost:3000/user`, {
         method: "POST",
         body: JSON.stringify({ username, email, password }),
@@ -9,7 +9,7 @@ export const registerUserService = async ({ username, email, password}) => {
 
     const json = await response.json();
 
-    if(!response.ok){
+    if (!response.ok) {
         throw new Error(json.message);
     }
     return json.access;
@@ -107,7 +107,7 @@ export const getAllLinksService = async (token) => {
     if (!response.ok) {
         throw new Error(json.message);
     }
-    
+
     return json.data;
 };
 
@@ -201,22 +201,23 @@ export const checkVoted = async (linkId, token) => {
 }
 
 export const UpdateLinkService = async ({ id, token, data }) => {
+
     const response = await fetch(`http://localhost:3000/links/edit/${id}`, {
-      method: "PUT",
-      headers: {
-        Authorization: token,
-        "Content-Type": "application/json", 
-      },
-      body: JSON.stringify(data), 
+        method: "PUT",
+        headers: {
+            Authorization: token,
+        },
+        body: data
+
     });
-  
+
     const json = await response.json();
-  
+
     if (!response.ok) {
-      throw new Error(json.message);
+        throw new Error(json.message);
     }
-  
+
     return json.message;
-  };
+};
 
 

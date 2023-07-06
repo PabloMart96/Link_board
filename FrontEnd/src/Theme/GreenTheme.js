@@ -4,7 +4,7 @@ import { red } from '@mui/material/colors';
 export const GreenTheme = createTheme({
     palette: {
         primary: {
-            main: '#245953'
+            main: '#222831'
         },
         secondary: {
             main: '#D8D8D8'
@@ -14,6 +14,6 @@ export const GreenTheme = createTheme({
         }
     },
     typography: {
-        fontFamily: 'Roboto',
+        fontFamily: 'Arimo',
     }
 })

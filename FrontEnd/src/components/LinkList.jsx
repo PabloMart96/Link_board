@@ -1,13 +1,14 @@
 import { Element } from './Element';
 import PropTypes from 'prop-types';
+import '../styles/linkList.css'
 
 export const LinkList = ({ links, removePost }) => {
 
     return links.length ? (
-        <ul>
+        <ul className='container'>
             {links.map((link, index) => {
                 return (
-                    <li key={index}>
+                    <li key={index} className='element'>
                         <Element link={link} removePost={removePost} />
                     </li>
                 );
