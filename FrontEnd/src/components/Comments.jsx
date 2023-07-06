@@ -1,11 +1,14 @@
 import { useState, useEffect, useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
-import { getCommentsByLinkIdService, createCommentService } from "../services/index";
+import { getCommentsByLinkIdService, createCommentService, deleteCommentService } from "../services/index";
 import { Error } from "./Error";
+import { useNavigate } from "react-router-dom";
 
 // eslint-disable-next-line react/prop-types
-export const Comments = ({ linkId }) => {
-  const { token } = useContext(AuthContext);
+export const Comments = ({ linkId, removeComment }) => {
+
+  const navigate = useNavigate();
+  const { token, user } = useContext(AuthContext);
   const [comments, setComments] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -41,6 +44,20 @@ export const Comments = ({ linkId }) => {
   if (loading) return <p>Loading comments...</p>;
   if (error) return <Error message={error} />;
 
+  const deleteComment = async (id) => {
+    try {
+        await deleteCommentService({ id, token });
+        if (removeComment) {
+          removeComment(id);
+        } else {
+            navigate(`/`);
+        }
+    } catch (error) {
+        setError(error.message);
+    }
+};
+
+
   return (
     <div>
       <h2>Comments</h2>
@@ -49,14 +66,24 @@ export const Comments = ({ linkId }) => {
           type="text"
           value={newCommentText}
           onChange={(event) => setNewCommentText(event.target.value)}
-          placeholder="Enter your comment"
+          placeholder="Introduce tu comentario"
         />
         <button type="submit">Submit</button>
       </form>
         {comments.length > 0 ? (
           comments.map((comment) => (
             <ul key={comment.id}>
-              <li>{comment.comment_text}</li> 
+              <li>{comment.comment_text}
+ 
+
+                     {comment.user_id === user.id && (
+                      <button onClick={() => 
+                      {if (window.confirm("Are you sure?"))deleteComment(comment.id)}}>Borrar Comentario</button>
+                    )}   
+                  
+
+                  {error ? <p>{error}</p> : null}
+              </li> 
             </ul>
           ))
         ) : (

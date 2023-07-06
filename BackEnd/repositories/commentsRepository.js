@@ -1,4 +1,5 @@
 const { getConnection } = require('../db/db');
+const { generateError } = require('../helpers');
 
 // Devuelve todos los comentarios de un link
 const getCommentsByLinkId = async (linkId) => {
@@ -45,7 +46,50 @@ const createComment = async (userId, linkId, commentText) => {
   }
 };
 
+//Devuelve el link a partir del id
+const getCommentById = async (id) => {
+  let connection;
+
+  try {
+      connection = await getConnection();
+
+      const [result] = await connection.query(`
+          SELECT * FROM comments WHERE id = ?
+      `,
+          [id]);
+
+      if (result.length === 0) {
+          throw generateError(`El comentario con ID: ${id} no existe`, 404);
+      }
+
+      return result[0];
+  } finally {
+      if (connection) connection.release();
+  }
+};
+
+
+//Borra el link a partir del id
+const deleteCommentById = async (id) => {
+  let connection;
+
+  try {
+      connection = await getConnection();
+
+      await connection.query(`
+          DELETE FROM comments WHERE id = ?
+      `,
+          [id]);
+
+      return;
+  } finally {
+      if (connection) connection.release();
+  }
+};
+
 module.exports = {
   getCommentsByLinkId,
   createComment,
+  getCommentById,
+  deleteCommentById,
 };

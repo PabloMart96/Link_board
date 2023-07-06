@@ -256,6 +256,20 @@ export const UpdateLinkService = async ({ id, token, data }) => {
     return json.data;
   };
   
+  export const deleteCommentService = async ({id, token}) => {
+    const response = await fetch(`http://localhost:3000/links/comments/${id}`, {
+      method: "DELETE",
+      headers: {
+        Authorization: token,
+      },
+    });
+  
+    const json = await response.json();
+  
+    if (!response.ok) {
+      throw new Error(json.message);
+    }
+  };
   
   
   
