@@ -1,4 +1,8 @@
 const Joi = require('joi');
+const path = require('path');
+const fs = require('fs').promises;
+const sharp = require('sharp');
+const nanoid = require('nanoid');
 const { getAllLinks, createLink, getLinkById, deleteLinkById, updateLinkById } = require("../repositories/linksRepository");
 const { generateError } = require('../helpers');
 
@@ -10,6 +14,8 @@ const schema = Joi.object().keys({
 });
 
 const schema2 = Joi.number().integer().positive().required();
+
+const validExtension = ['.jpeg', '.jpg', '.png', '.webp'];
 
 //Devuelve todos los links publicados
 const getLinksController = async (req, res, next) => {
@@ -31,16 +37,41 @@ const newLinkController = async (req, res, next) => {
   try {
     const { body } = req;
     await schema.validateAsync(body);
-    const { url, titulo, description } = body;
+    const { url, titulo, description, image } = body;
 
     const userId = req.auth.id;
+    let imageName = '';
 
-    const id = await createLink(userId, url, titulo, description);
+    if (req.files) {
+      const { picture } = req.files;
+      const extension = path.extname(picture.name);
+
+      //validamos la extension de la imagen
+      if (!validExtension.includes(extension)) {
+        throw generateError('Formato no válido', 400);
+      }
+
+      //creamos la ruta de la imagen
+      const pathPicture = path.join(__dirname, '../public/links');
+
+
+      if (image) {
+        await fs.unlink(`${pathPicture}/${image}`);
+      }
+
+      imageName = `${nanoid(24)}.jpg`;
+      const pathImage = `${pathPicture}/${imageName}`;
+
+      //Redimensionamos la imagen
+      await sharp(picture.data).resize(500, 500).toFile(pathImage);
+    }
+
+    const id = await createLink(userId, url, titulo, description, imageName);
 
     res.send({
       status: 'success',
       message: `Links con id: ${id} creado correctamente!!`,
-      data: { url, titulo, description },
+      data: { url, titulo, description, imageName },
     });
 
   } catch (error) {
@@ -53,21 +84,49 @@ const updateLinkController = async (req, res, next) => {
     const { id } = req.params;
     const { body } = req;
     await schema.validateAsync(body);
-    const { url, titulo, description } = body;
+    
+    const { url, titulo, description, image } = body;
+    
     const userId = req.auth.id;
 
     const link = await getLinkById(id);
-    
+
     if (userId !== link.user_id) {
       throw generateError('Estás tratando de editar un link que no es tuyo!!', 401);
     }
 
-    await updateLinkById({ id, url, titulo, description });
+    let imageName = '';
+
+    if (req.files) {
+      const { picture } = req.files;
+      const extension = path.extname(picture.name);
+
+      //validamos la extension de la imagen
+      if (!validExtension.includes(extension)) {
+        throw generateError('Formato no válido', 400);
+      }
+
+      //creamos la ruta de la imagen
+      const pathPicture = path.join(__dirname, '../public/links');
+
+
+      if (image) {
+        await fs.unlink(`${pathPicture}/${image}`);
+      }
+
+      imageName = `${nanoid(24)}.jpg`;
+      const pathImage = `${pathPicture}/${imageName}`;
+
+      //Redimensionamos la imagen
+      await sharp(picture.data).resize(500, 500).toFile(pathImage);
+    }
+
+    await updateLinkById(id, url, titulo, description, imageName);
 
     res.send({
       status: 'success',
       message: `El link con id: ${id} fue editado exitosamente!!`,
-      data: { url, titulo, description },
+      data: { url, titulo, description, imageName },
     });
 
   } catch (error) {
@@ -84,7 +143,7 @@ const deleteLinkController = async (req, res, next) => {
 
     const link = await getLinkById(id);
     const { url, titulo } = link;
-    
+
     if (userId !== link.user_id) {
       throw generateError('Estas tratando de borrar un link que no es tuyo!!', 401);
     }
@@ -107,7 +166,7 @@ const deleteLinkController = async (req, res, next) => {
 const getSingleLinkController = async (req, res, next) => {
   try {
     const { id } = req.params;
-    
+
     const link = await getLinkById(id);
 
     res.send({

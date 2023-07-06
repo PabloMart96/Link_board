@@ -20,5 +20,4 @@ linkRoutes.route('/comments/:id').all(validateAuth).get(getCommentsController); 
 linkRoutes.route('/comments/:id').all(validateAuth).post(createCommentController); //Crea un comentario para un link
 
 
-
 module.exports = linkRoutes;
