@@ -47,13 +47,13 @@ export const Auth = () => {
         navigate('/update');
     }
 
-    const handleRegisterClick = () => {
-        navigate('/register');
-    }
+    // const handleRegisterClick = () => {
+    //     navigate('/register');
+    // }
 
-    const handleLoginClick = () => {
-        navigate('/login');
-    }
+    // const handleLoginClick = () => {
+    //     navigate('/login');
+    // }
 
 
 
@@ -114,12 +114,12 @@ export const Auth = () => {
         </>
     ) : (
         <>
-            <IconButton size="large" edge="end" color="inherit" aria-label="login" onClick={handleRegisterClick}>
+            {/* <IconButton size="large" edge="end" color="inherit" aria-label="login" onClick={handleRegisterClick}>
                 <Typography variant="body1" sx={{ marginRight: 1, color: '##F7F2EF' }}>Registrarse</Typography>
             </IconButton>
             <IconButton size="large" edge="end" color="inherit" aria-label="login" onClick={handleLoginClick}>
                 <Typography variant="body1" sx={{ marginRight: 1, color: '##F7F2EF' }}>Iniciar sesión</Typography>
-            </IconButton>
+            </IconButton> */}
 
         </>
 

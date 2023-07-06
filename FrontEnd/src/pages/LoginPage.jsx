@@ -56,6 +56,9 @@ export const LoginPage = () => {
         <div className="inputbox">
           <button className="btn">Login</button>
         </div>
+        <div className="text">
+          <a href={'/register'}>Create account</a>
+        </div>
         {error ? <p className="error">{error}</p> : null}
       </form>
     </section>

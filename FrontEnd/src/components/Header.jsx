@@ -4,10 +4,10 @@ import { AppBar, Toolbar, Typography } from '@mui/material';
 
 export const Header = () => {
     return (
-        <AppBar position="static">
+        <AppBar position="fixed">
             <Toolbar>
                 <Typography variant="h4" component={Link} to="/" sx={{ flexGrow: 1, textDecoration: 'none', color: '#F7F2EF' }}>
-                    LinkOverflow.
+                    LinkOverflow
                 </Typography>
 
                 <nav>

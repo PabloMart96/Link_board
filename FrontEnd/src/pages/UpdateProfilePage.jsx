@@ -80,6 +80,7 @@ export const UpdateProfilePage = () => {
                         type="email"
                         name="email"
                         id="email"
+                        disabled
                         value={email}
                         required
                         onChange={(e) => setEmail(e.target.value)}

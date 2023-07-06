@@ -5,10 +5,10 @@ import '../styles/linkList.css'
 export const LinkList = ({ links, removePost }) => {
 
     return links.length ? (
-        <ul className='container'>
+        <ul>
             {links.map((link, index) => {
                 return (
-                    <li key={index} className='element'>
+                    <li key={index} className='list'>
                         <Element link={link} removePost={removePost} />
                     </li>
                 );
