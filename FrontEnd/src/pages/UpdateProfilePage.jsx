@@ -80,7 +80,6 @@ export const UpdateProfilePage = () => {
                         type="email"
                         name="email"
                         id="email"
-                        disabled
                         value={email}
                         readOnly
                         required
