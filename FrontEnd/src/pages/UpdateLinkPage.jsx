@@ -7,11 +7,13 @@ const UpdateLinkPage = () => {
   const [updatedUrl, setUpdatedUrl] = useState("");
   const [updatedTitulo, setUpdatedTitulo] = useState("");
   const [updatedDescripcion, setUpdatedDescripcion] = useState("");
-  const [updatePicture, setUpdatePicture] = useState(null);
+  const [updatePicture, setUpdatePicture] = useState();
   const [error, setError] = useState("");
 
   const navigate = useNavigate();
   const { id } = useParams();
+
+  console.log(updatePicture);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -21,6 +23,7 @@ const UpdateLinkPage = () => {
         setUpdatedUrl(data.url);
         setUpdatedTitulo(data.titulo);
         setUpdatedDescripcion(data.description);
+        setUpdatePicture(data.iamge)
       } catch (error) {
         setError(error.message);
       }
@@ -79,9 +82,9 @@ const UpdateLinkPage = () => {
           />
         </fieldset>
         <fieldset>
-          <label htmlFor="description">Descripción:</label>
-          <input
-            type="text"
+          <label htmlFor="description">Descripción</label>
+          <textarea
+            type="textarea"
             id="description"
             name="description"
             value={updatedDescripcion}

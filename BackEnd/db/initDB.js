@@ -9,25 +9,13 @@ async function main() {
   try {
     connection = await getConnection();
 
-    console.log('Borrando tablas existentes');
+    console.log('Iniciando Base de datos');
 
-    // await connection.query(
-    //   'ALTER TABLE ratings DROP FOREIGN KEY fk_link_user'
-    // );
-    // await connection.query(
-    //   'ALTER TABLE ratings DROP FOREIGN KEY links_ibfk_1'
-    // );
-    // await connection.query(
-    //   'ALTER TABLE comments DROP FOREIGN KEY comments_ibfk_1'
-    // );
-    // await connection.query(
-    //   'ALTER TABLE comments DROP FOREIGN KEY comments_ibfk_2'
-    // );
+    await connection.query('DROP DATABASE IF EXISTS enlaces');
 
-    await connection.query('DROP TABLE IF EXISTS links');
-    await connection.query('DROP TABLE IF EXISTS users');
-    await connection.query('DROP TABLE IF EXISTS ratings');
-    await connection.query('DROP TABLE IF EXISTS comments');
+    await connection.query('CREATE DATABASE enlaces');
+
+    await connection.query('USE enlaces');
 
     console.log('Creando las tablas de la base de datos');
 
@@ -51,7 +39,7 @@ async function main() {
         image VARCHAR(200) NULL DEFAULT NULL,
         description VARCHAR(200) NOT NULL,
         created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-        FOREIGN KEY (user_id) REFERENCES users(id)
+        FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
     );
     `);
     await connection.query(`

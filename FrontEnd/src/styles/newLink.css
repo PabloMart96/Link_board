@@ -16,12 +16,15 @@
   background: #18171c;
   margin: 16px 0px;
   padding: 20px;
-  border-radius: 5px;
+  border-radius: 20px;
+  box-shadow: 0px 0px 6px 3px rgb(51, 224, 255, 0.5);
+  border: 4px solid #33e0ff;
 }
 
 .newPublication form label {
   font-family: "Arimo";
   font-size: 16px;
+  font-weight: bold;
   color: #ccc;
 }
 
@@ -29,6 +32,7 @@
   width: 100%;
   padding: 8px;
   border: 1px solid #ccc;
+  font-size: 16px;
   color: #ffffff;
   border-radius: 3px;
   margin-bottom: 10px;
@@ -37,8 +41,9 @@
 
 .newPublication form textarea {
   resize: none;
+  font-size: 16px;
   width: 100%;
-  height: 100px;
+  max-height: 80px;
   padding: 8px;
   border: 1px solid #ccc;
   color: #ffffff;
@@ -81,6 +86,10 @@ form .image-field label:hover {
   border: none;
   border-radius: 3px;
   cursor: pointer;
+}
+
+.newPublication .btn:hover {
+  background-color: #154666;
 }
 
 .error {
