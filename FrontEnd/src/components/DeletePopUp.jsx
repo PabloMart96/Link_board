@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types';
 import PopUp from "reactjs-popup";
-import { IconButton } from '@material-ui/core';
 import DeleteIcon from '@mui/icons-material/Delete';
 import '../styles/PopUp.css';
 
@@ -8,9 +7,7 @@ export const DeletePopUp = ({ onConfirm }) => {
   return (
     <PopUp
       trigger={
-        <IconButton aria-label="Eliminar Publicación">
-          <DeleteIcon />
-        </IconButton>
+        <DeleteIcon className='deleteIcon' />
       }
       modal
       closeOnDocumentClick

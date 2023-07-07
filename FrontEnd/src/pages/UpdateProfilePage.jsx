@@ -2,6 +2,7 @@ import { useContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 import { UpdateUserService, getMyDataService } from "../services/index";
+import '../styles/updateProfile.css';
 
 export const UpdateProfilePage = () => {
     const navigate = useNavigate();
@@ -42,29 +43,11 @@ export const UpdateProfilePage = () => {
     };
 
     return (
-        <section>
-            <h1>Actualizar Usuario</h1>
+        <section className="editProfile">
+            <h2>Actualizar Usuario</h2>
             <form onSubmit={handleForm}>
                 <fieldset>
-                    <label htmlFor="image">Imagen</label>
-                    <input
-                        type="file"
-                        name="picture"
-                        id="image"
-                        onChange={(e) => setPicture(e.target.files[0])}
-                    />
-                    {picture ? (
-                        <figure>
-                            <img
-                                src={URL.createObjectURL(picture)}
-                                style={{ width: "100px" }}
-                                alt="Preview"
-                            />
-                        </figure>
-                    ) : null}
-                </fieldset>
-                <fieldset>
-                    <label htmlFor="username">Nombre de usuario</label>
+                    <label htmlFor="username">Username</label>
                     <input
                         type="text"
                         name="username"
@@ -80,7 +63,6 @@ export const UpdateProfilePage = () => {
                         type="email"
                         name="email"
                         id="email"
-                        disabled
                         value={email}
                         readOnly
                         required
@@ -97,8 +79,26 @@ export const UpdateProfilePage = () => {
                         onChange={(e) => setDescription(e.target.value)}
                     />
                 </fieldset>
-                <button>Actualizar</button>
-                {error ? <p>{error}</p> : null}
+                <fieldset className="imageField">
+                    <label htmlFor="image">Avatar</label>
+                    <input
+                        type="file"
+                        name="picture"
+                        id="image"
+                        onChange={(e) => setPicture(e.target.files[0])}
+                    />
+                    {picture ? (
+                        <figure>
+                            <img
+                                src={URL.createObjectURL(picture)}
+                                style={{ width: "100px" }}
+                                alt="Preview"
+                            />
+                        </figure>
+                    ) : null}
+                </fieldset>
+                <button className="btn">Actualizar</button>
+                {error ? <p className="error">{error}</p> : null}
             </form>
         </section>
     );

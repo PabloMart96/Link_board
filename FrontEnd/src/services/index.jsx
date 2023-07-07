@@ -63,8 +63,8 @@ export const getUserService = async (id, token) => {
     return json.data;
 };
 
-export const getLinksByIdService = async (id, token) => {
-    const response = await fetch(`http://localhost:3000/user/links/${id}`, {
+export const getLinksByIdService = async (id, token, limit, offset) => {
+    const response = await fetch(`http://localhost:3000/user/links/${id}?limit=${limit}&offset=${offset}`, {
         headers: {
             Authorization: token,
         }
@@ -95,8 +95,8 @@ export const getSingleLinkService = async (id, token) => {
     return json.data;
 };
 
-export const getAllLinksService = async (token) => {
-    const response = await fetch(`http://localhost:3000/links`, {
+export const getAllLinksService = async (token, limit, offset) => {
+    const response = await fetch(`http://localhost:3000/links?limit=${limit}&offset=${offset}`, {
         headers: {
             Authorization: token,
         }
@@ -220,7 +220,7 @@ export const UpdateLinkService = async ({ id, token, data }) => {
     return json.message;
 };
 
-  export const getCommentsByLinkIdService = async (linkId, token) => {  
+export const getCommentsByLinkIdService = async (linkId, token) => {
     const response = await fetch(`http://localhost:3000/links/comments/${linkId}`, {
         headers: {
             Authorization: token,
@@ -228,50 +228,50 @@ export const UpdateLinkService = async ({ id, token, data }) => {
     });
 
     const json = await response.json();
-  
+
     if (!response.ok) {
-      throw new Error(json.message);
+        throw new Error(json.message);
     }
-  
+
     return json.data;
-  };
-  
-  export const createCommentService = async (linkId, comment_Text, token) => {
+};
+
+export const createCommentService = async (linkId, comment_Text, token) => {
     const response = await fetch(`http://localhost:3000/links/comments/${linkId}`, {
-      method: "POST",
-      body: JSON.stringify({ comment_text: comment_Text }),
-      headers: {
-        Authorization: token,
-        "Content-Type": "application/json",
-      },
-      
+        method: "POST",
+        body: JSON.stringify({ comment_text: comment_Text }),
+        headers: {
+            Authorization: token,
+            "Content-Type": "application/json",
+        },
+
     });
-  
+
     const json = await response.json();
-  
+
     if (!response.ok) {
-      throw new Error(json.message);
+        throw new Error(json.message);
     }
-  
+
     return json.data;
-  };
-  
-  export const deleteCommentService = async ({id, token}) => {
+};
+
+export const deleteCommentService = async ({ id, token }) => {
     const response = await fetch(`http://localhost:3000/links/comments/${id}`, {
-      method: "DELETE",
-      headers: {
-        Authorization: token,
-      },
+        method: "DELETE",
+        headers: {
+            Authorization: token,
+        },
     });
-  
+
     const json = await response.json();
-  
+
     if (!response.ok) {
-      throw new Error(json.message);
+        throw new Error(json.message);
     }
-  };
-  
-  
-  
+};
+
+
+
 
 

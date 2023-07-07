@@ -1,19 +1,25 @@
 import { Element } from './Element';
 import PropTypes from 'prop-types';
 import '../styles/linkList.css'
+import { Button } from '@mui/material';
 
-export const LinkList = ({ links, removePost }) => {
+export const LinkList = ({ links, removePost, handlePagination }) => {
 
     return links.length ? (
-        <ul>
-            {links.map((link, index) => {
-                return (
-                    <li key={index} className='list'>
-                        <Element link={link} removePost={removePost} />
-                    </li>
-                );
-            })}
-        </ul>
+        <div>
+            <ul>
+                {links.map((link, index) => {
+                    return (
+                        <li key={index} className='list'>
+                            <Element link={link} removePost={removePost} />
+                        </li>
+                    );
+                })}
+
+            </ul>
+            <Button variant='contained' color='primary' onClick={handlePagination}>Load More</Button>
+        </div>
+
     ) : (
         <p>No existen publicaciones...</p>
     )
@@ -22,4 +28,5 @@ export const LinkList = ({ links, removePost }) => {
 LinkList.propTypes = {
     links: PropTypes.array,
     removePost: PropTypes.func,
+    handlePagination: PropTypes.func,
 }

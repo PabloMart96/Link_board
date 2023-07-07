@@ -3,7 +3,7 @@ const { generateError } = require('../helpers');
 
 
 //Devuelve todos los links de la base de datos
-const getAllLinks = async () => {
+const getAllLinks = async (limit, offset) => {
     let connection;
 
     try {
@@ -11,8 +11,9 @@ const getAllLinks = async () => {
 
         const [result] = await connection.query(`
         SELECT l.id, l.user_id,  l.url, l.titulo, l.description, l.created_at, u.username, u.email, l.image, ROUND(AVG(rating)) as media, COUNT(link_id) AS votes FROM links l left JOIN users u 
-        ON l.user_id=u.id left JOIN ratings r ON r.link_id= l.id GROUP BY l.id  ORDER BY l.created_at DESC
-        `);
+        ON l.user_id=u.id left JOIN ratings r ON r.link_id= l.id GROUP BY l.id  ORDER BY l.created_at DESC LIMIT ? OFFSET ?
+        `,
+            [limit, offset]);
         return result;
     } finally {
         if (connection) connection.release();
@@ -78,7 +79,7 @@ const deleteLinkById = async (id) => {
 };
 
 //Devuelve los links a partir de id del usuario autentificado
-const getLinksByUserId = async (id) => {
+const getLinksByUserId = async (id, limit, offset) => {
     let connection;
 
     try {
@@ -86,9 +87,9 @@ const getLinksByUserId = async (id) => {
 
         const [result] = await connection.query(
             `
-            SELECT links.*, users.email, users.username FROM links LEFT JOIN users on links.user_id = users.id WHERE links.user_id = ?
+            SELECT links.*, users.email, users.username FROM links LEFT JOIN users on links.user_id = users.id WHERE links.user_id = ? GROUP BY links.id  ORDER BY links.created_at DESC LIMIT ? OFFSET ?
         `,
-            [id]
+            [id, limit, offset]
         );
 
         return result;

@@ -9,15 +9,20 @@ export const useLinks = (id) => {
     const [links, setLinks] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
+    const [offset, setOffset] = useState(0);
+    const limit = 2; //Cantidad de publiaciones por página
 
-    const loadLinks = async () => {
+    const loadLinks = async (offset) => {
         try {
             setLoading(true);
-            const data = id
-                ? await getLinksByIdService(id, token)
-                : await getAllLinksService(token);
 
-            setLinks(data);
+            const data = id
+                ? await getLinksByIdService(id, token, limit, offset)
+                : await getAllLinksService(token, limit, offset);
+
+            setLinks((links) => [...links, ...data]);
+            setOffset((prevOffset) => prevOffset + limit);
+
         } catch (error) {
             setError(error.message);
         } finally {
@@ -25,20 +30,30 @@ export const useLinks = (id) => {
         }
     };
 
-    useEffect(() => {        
-        loadLinks();
+
+    useEffect(() => {
+        loadLinks(offset);
     }, [id, token]);
 
+    const handlePagination = async () => {
+        await loadLinks(offset);
+    }
 
-    const addPost = (data) => {
-        setLinks([data, ...links]);
-        loadLinks();
+    const addPost = async (data) => {
+        setLinks((links) => [data, ...links]);
+        setLinks([]);
+        await setOffset(0);
+        await loadLinks(0);
+
     };
 
-    const removePost = (id) => {
+    const removePost = async (id) => {
         setLinks(links.filter((link) => link.id !== id));
+        setLinks([]);
+        await setOffset(0);
+        await loadLinks(0);
     };
 
 
-    return { links, error, addPost, removePost, loading };
+    return { links, error, addPost, removePost, loading, handlePagination };
 };
