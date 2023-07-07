@@ -20,7 +20,12 @@ const validExtension = ['.jpeg', '.jpg', '.png', '.webp'];
 //Devuelve todos los links publicados
 const getLinksController = async (req, res, next) => {
   try {
-    const links = await getAllLinks();
+
+    const limit = parseInt(req.query.limit);
+    const offset = parseInt(req.query.offset);
+
+
+    const links = await getAllLinks(limit, offset);
 
     res.send({
       status: 'success',
@@ -84,9 +89,9 @@ const updateLinkController = async (req, res, next) => {
     const { id } = req.params;
     const { body } = req;
     await schema.validateAsync(body);
-    
+
     const { url, titulo, description, image } = body;
-    
+
     const userId = req.auth.id;
 
     const link = await getLinkById(id);

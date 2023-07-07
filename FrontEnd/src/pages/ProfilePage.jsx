@@ -6,11 +6,12 @@ import { useUser } from "../hooks/useUser";
 import { Avatar, Grid, Box, Typography } from "@mui/material";
 import PersonIcon from '@mui/icons-material/Person';
 import imageDefault from '../assets/default.jpg';
+import '../styles/profile.css';
 
 export const ProfilePage = () => {
 
     const { id } = useParams();
-    const { user, loading, error, removePost } = useUser(id);
+    const { user, loading, error, removePost, handlePagination } = useUser(id);
 
     const imagenSrc = user.image ? `http://localhost:3000/${user.image}` : imageDefault;
 
@@ -54,7 +55,7 @@ export const ProfilePage = () => {
             </Grid>
             <Box display='flex' flexDirection='column' justifyContent='center' alignItems='center'>
                 <Typography variant="h6">Publicaciones</Typography>
-                <UserLinks id={id} removePost={removePost} />
+                <UserLinks id={id} removePost={removePost} handlePagination={handlePagination} />
             </Box>
 
         </Grid>

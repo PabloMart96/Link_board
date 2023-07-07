@@ -268,8 +268,10 @@ const imagenController = async (req, res, next) => {
 const getUserLinksController = async (req, res, next) => {
   try {
     const { id } = req.auth;
+    const limit = parseInt(req.query.limit);
+    const offset = parseInt(req.query.offset);
 
-    const links = await getLinksByUserId(id);
+    const links = await getLinksByUserId(id, limit, offset);
 
     res.send({
       status: 'ok',
@@ -283,8 +285,10 @@ const getUserLinksController = async (req, res, next) => {
 const getUserLinksByIdController = async (req, res, next) => {
   try {
     const { id } = req.params;
+    const limit = parseInt(req.query.limit);
+    const offset = parseInt(req.query.offset);
 
-    const links = await getLinksByUserId(id);
+    const links = await getLinksByUserId(id, limit, offset);
 
     res.send({
       status: 'ok',

@@ -24,7 +24,6 @@ export const Element = ({ link, removePost }) => {
     }
 
     const deletePost = async (id) => {
-        console.log(id);
         try {
             await deletePostService({ id, token });
             if (removePost) {

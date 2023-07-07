@@ -9,7 +9,7 @@ import '../styles/homePage.css';
 
 export const HomePage = () => {
 
-    const { links, error, addPost, loading, removePost } = useLinks();
+    const { links, error, addPost, loading, removePost, handlePagination } = useLinks();
     const { user } = useContext(AuthContext);
 
     if (loading) return <Loading />
@@ -22,7 +22,7 @@ export const HomePage = () => {
                     <NewPost addPost={addPost} />
                     <section className='list'>
                         <h2>Publicaciones Recientes</h2>
-                        <LinkList links={links} removePost={removePost} />
+                        <LinkList links={links} removePost={removePost} handlePagination={handlePagination} />
                     </section>
 
                 </div> : null

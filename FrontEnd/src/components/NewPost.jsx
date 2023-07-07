@@ -18,7 +18,8 @@ export const NewPost = ({ addPost }) => {
             const data = new FormData(e.target);
             await sendPostService({ data, token });
 
-            addPost();
+            addPost(data);
+
 
             e.target.reset();
             setPicture(null);
@@ -37,7 +38,7 @@ export const NewPost = ({ addPost }) => {
                     <input type="text" name="url" id="url" required />
                 </fieldset>
                 <fieldset>
-                    <label htmlFor="text">Titulo</label>
+                    <label htmlFor="text">Título</label>
                     <input type="text" name="titulo" id="titulo" required />
                 </fieldset>
                 <fieldset>

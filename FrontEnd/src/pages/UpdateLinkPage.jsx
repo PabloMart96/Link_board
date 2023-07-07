@@ -1,33 +1,28 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { getSingleLinkService, UpdateLinkService } from "../services";
+import '../styles/editLink.css'
 
 const UpdateLinkPage = () => {
   const [updatedUrl, setUpdatedUrl] = useState("");
   const [updatedTitulo, setUpdatedTitulo] = useState("");
   const [updatedDescripcion, setUpdatedDescripcion] = useState("");
   const [updatePicture, setUpdatePicture] = useState(null);
+  const [error, setError] = useState("");
+
   const navigate = useNavigate();
   const { id } = useParams();
-  // eslint-disable-next-line no-unused-vars
-  const [link, setLink] = useState({
-    url: "",
-    titulo: "",
-    description: "",
-    image: null,
-  });
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const token = localStorage.getItem("token");
         const data = await getSingleLinkService(id, token);
-        setLink(data);
         setUpdatedUrl(data.url);
         setUpdatedTitulo(data.titulo);
         setUpdatedDescripcion(data.description);
       } catch (error) {
-        console.error(error);
+        setError(error.message);
       }
     };
 
@@ -38,14 +33,7 @@ const UpdateLinkPage = () => {
     e.preventDefault();
 
     try {
-      // const data = {
-      //   url: updatedUrl,
-      //   titulo: updatedTitulo,
-      //   description: updatedDescripcion,
-      // };
-
       const data = new FormData(e.target);
-
       const token = localStorage.getItem("token");
       await UpdateLinkService({ id, token, data });
       navigate(`/`);
@@ -67,34 +55,40 @@ const UpdateLinkPage = () => {
   };
 
   return (
-    <div>
-      <h1>Editar Enlace</h1>
+    <section className="editPublication">
+      <h2>Editar Enlace</h2>
       <form onSubmit={handleSubmit}>
-        <label htmlFor="url">URL:</label>
-        <input
-          type="text"
-          id="url"
-          name="url"
-          value={updatedUrl}
-          onChange={handleUrlChange}
-        />
-        <label htmlFor="titulo">Título:</label>
-        <input
-          type="text"
-          id="titulo"
-          name="titulo"
-          value={updatedTitulo}
-          onChange={handleTituloChange}
-        />
-        <label htmlFor="description">Descripción:</label>
-        <input
-          type="text"
-          id="description"
-          name="description"
-          value={updatedDescripcion}
-          onChange={handleDescripcionChange}
-        />
         <fieldset>
+          <label htmlFor="url">URL</label>
+          <input
+            type="text"
+            id="url"
+            name="url"
+            value={updatedUrl}
+            onChange={handleUrlChange}
+          />
+        </fieldset>
+        <fieldset>
+          <label htmlFor="titulo">Título</label>
+          <input
+            type="text"
+            id="titulo"
+            name="titulo"
+            value={updatedTitulo}
+            onChange={handleTituloChange}
+          />
+        </fieldset>
+        <fieldset>
+          <label htmlFor="description">Descripción:</label>
+          <input
+            type="text"
+            id="description"
+            name="description"
+            value={updatedDescripcion}
+            onChange={handleDescripcionChange}
+          />
+        </fieldset>
+        <fieldset className="imageField">
           <label htmlFor="image">Imagen</label>
           <input
             type="file"
@@ -112,9 +106,10 @@ const UpdateLinkPage = () => {
             </figure>
           ) : null}
         </fieldset>
-        <button type="submit">Guardar Cambios</button>
+        <button className="btn" type="submit">Guardar Cambios</button>
+        {error ? <p className="error">{error}</p> : null}
       </form>
-    </div>
+    </section>
   );
 };
 
