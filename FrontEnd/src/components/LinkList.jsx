@@ -6,7 +6,7 @@ import { Button } from '@mui/material';
 export const LinkList = ({ links, removePost, handlePagination }) => {
 
     return links.length ? (
-        <div>
+        <div className='listBtn'>
             <ul>
                 {links.map((link, index) => {
                     return (
@@ -17,7 +17,7 @@ export const LinkList = ({ links, removePost, handlePagination }) => {
                 })}
 
             </ul>
-            <Button variant='contained' color='primary' onClick={handlePagination}>Load More</Button>
+            <Button variant='contained' className='btnMore' color='button' onClick={handlePagination}>More</Button>
         </div>
 
     ) : (

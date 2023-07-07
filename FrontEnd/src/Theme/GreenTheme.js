@@ -9,6 +9,9 @@ export const GreenTheme = createTheme({
         secondary: {
             main: '#D8D8D8'
         },
+        button: {
+            main: '#007bff'
+        },
         error: {
             main: red.A400
         }

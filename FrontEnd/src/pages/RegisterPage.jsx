@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { useState } from "react"
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { registerUserService } from "../services";
 import { AuthContext } from "../context/AuthContext";
 import "../styles/login&register.css";
@@ -19,15 +19,10 @@ export const RegisterPage = () => {
 
     try {
       //Con este trozo de codigo se logea al usuario despues de registrarse
-
       const response = await registerUserService({ username, email, password });
       const BearerToken = `Bearer ${response}`;
       login(BearerToken);
       navigate("/");
-
-      //Con este trozo no se logea y redirige al login
-      // await registerUserService({ username, email, password });
-      // navigate("/login");
 
     } catch (error) {
       setError(error.message);
@@ -77,7 +72,7 @@ export const RegisterPage = () => {
           <button className="btn">Sing Up</button>
         </div>
         <div className="text">
-          <a href={'/login'}>Sign In</a>
+          <Link to={'/login'}>Sign In</Link>
         </div>
 
         {error ? <p className="error">{error}</p> : null}

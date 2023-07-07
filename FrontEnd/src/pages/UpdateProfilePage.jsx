@@ -6,7 +6,7 @@ import '../styles/updateProfile.css';
 
 export const UpdateProfilePage = () => {
     const navigate = useNavigate();
-    const { token } = useContext(AuthContext);
+    const { token, logout } = useContext(AuthContext);
 
     const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
@@ -36,7 +36,8 @@ export const UpdateProfilePage = () => {
             const data = new FormData(e.target);
             await UpdateUserService({ token, data });
 
-            navigate("/");
+            navigate("/login");
+            logout();
         } catch (error) {
             setError(error.message);
         }
@@ -64,7 +65,6 @@ export const UpdateProfilePage = () => {
                         name="email"
                         id="email"
                         value={email}
-                        readOnly
                         required
                         onChange={(e) => setEmail(e.target.value)}
                     />

@@ -43,11 +43,10 @@ export const Element = ({ link, removePost }) => {
                 <img src={imageSrc} alt="image" />
             </Box>
             <Box className='rest'>
-
-                <p>{link.url}</p>
-                <p>{link.description}</p>
-                <p>
-                    <Link to={`/user/${link.user_id}`}>{link.username}</Link> On{" "}
+                <p className="url">{link.url}</p>
+                <p className="descripcion">{link.description}</p>
+                <p className="create">
+                    <Link className="owner" to={`/user/${link.user_id}`}>{link.username}</Link> On{" "}
                     {new Date(link.created_at).toUTCString()}
                 </p>
                 <Box>
@@ -56,11 +55,11 @@ export const Element = ({ link, removePost }) => {
                 </Box>
 
                 {user && user.id === link.user_id ? (
-                    <section>
+                    <section className="icons">
                         <Link to={`/links/edit/${link.id}`}>
-                            <EditIcon />
+                            <EditIcon className="ediIcon" />
                         </Link>
-                        <DeletePopUp onConfirm={handleConfirmDelete} />
+                        <DeletePopUp className='deleteIcon' onConfirm={handleConfirmDelete} />
 
                         {error ? <p className="error">{error}</p> : null}
                     </section>

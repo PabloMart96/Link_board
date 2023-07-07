@@ -1,5 +1,5 @@
 import { useContext, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { loginUserService } from "../services";
 import { AuthContext } from "../context/AuthContext";
 import "../styles/login&register.css";
@@ -57,7 +57,7 @@ export const LoginPage = () => {
           <button className="btn">Login</button>
         </div>
         <div className="text">
-          <a href={'/register'}>Create account</a>
+          <Link to={'/register'}>Create account</Link>
         </div>
         {error ? <p className="error">{error}</p> : null}
       </form>
