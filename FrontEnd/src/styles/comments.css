@@ -1,84 +1,85 @@
 .comments {
-    margin-top: 20px;
-  }
-  
-  .title {
-    font-size: 25px;
-    font-weight: bold;
-  }
-  
-  .form {
-    margin-top: 15px;
-    display: flex;
-    align-items: center;
-  }
-  
-  .input {
-    flex: 1;
-    padding: 10px;
-    margin-right: 10px;
-    border: 1px solid white;
-    border-radius: 4px;
-  }
-  
-  .submit-btn {
-    padding: 10px 20px;
-    background-color: #1e6ca0;
-    color: white;
-    border: 1px solid #154666;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-  
-  .loading {
-    margin-top: 10px;
-  }
-  
-  .error {
-    color: red;
-  }
-  
-  .list {
-    list-style: none;
-    padding: 0;
-    margin-top: 10px;
-  }
-  
-  .item {
-    display: grid;
-    grid-template-columns: 1fr auto;
-    align-items: center;
-    margin-bottom: 10px;
-    border: 1px solid black;
-    border-radius: 10px;
-    box-shadow: 0px 0px 6px 3px rgba(30, 168, 192, 0.5);
-    margin: 10px;
-  }
+  margin-top: 20px;
+}
 
-  .icon {
-    margin-top: 10px;
-    flex: 1;
-    display: flex;
-    align-items: center;
-    padding: 10px;
-  }
-  
-  .text {
-    font-size: 15px;
-    margin-bottom: 5px;
-    padding: 10px;
-  }
-  
-  .delete {
-    font-size: 12px;
-    color: #1e6ca0;
-    cursor: pointer;
-    justify-self: end;
-  }
-  
-  .no-comments {
-    margin-top: 10px;
-    font-style: italic;
-    color: #999;
-  }
-  
+.title {
+  color: #18171c;
+  font-family: "Syne", sans-serif;
+  font-size: 25px;
+  font-weight: bold;
+}
+
+.form {
+  margin-top: 15px;
+  display: flex;
+  align-items: center;
+}
+
+.input {
+  flex: 1;
+  padding: 10px;
+  margin-right: 10px;
+  border: 1px solid white;
+  border-radius: 4px;
+}
+
+.submit-btn {
+  padding: 10px 20px;
+  background-color: #1e6ca0;
+  color: white;
+  border: 1px solid #154666;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.loading {
+  margin-top: 10px;
+}
+
+.error {
+  color: red;
+}
+
+.list {
+  list-style: none;
+  padding: 0;
+  margin-top: 10px;
+}
+
+.item {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  margin-bottom: 10px;
+  border: 1px solid black;
+  border-radius: 10px;
+  box-shadow: 0px 0px 6px 3px rgba(30, 168, 192, 0.5);
+  margin: 10px;
+}
+
+.icon {
+  margin-top: 10px;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  padding: 10px;
+}
+
+.text {
+  font-size: 15px;
+  margin-bottom: 5px;
+  padding: 10px;
+}
+
+.delete {
+  font-size: 12px;
+  color: #1e6ca0;
+  cursor: pointer;
+  justify-self: end;
+}
+
+.no-comments {
+  margin-top: 10px;
+  font-style: italic;
+  color: #999;
+}
