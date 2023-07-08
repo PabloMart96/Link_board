@@ -46,7 +46,8 @@ const getLinkById = async (id) => {
         connection = await getConnection();
 
         const [result] = await connection.query(`
-            SELECT * FROM links WHERE id = ?
+        SELECT l.id, l.user_id,  l.url, l.titulo, l.description, l.created_at, u.username, u.email, l.image, ROUND(AVG(rating)) as media, COUNT(link_id) AS votes FROM links l left JOIN users u 
+        ON l.user_id=u.id left JOIN ratings r ON r.link_id= l.id WHERE l.id = ?
         `,
             [id]);
 
@@ -87,7 +88,8 @@ const getLinksByUserId = async (id, limit, offset) => {
 
         const [result] = await connection.query(
             `
-            SELECT links.*, users.email, users.username FROM links LEFT JOIN users on links.user_id = users.id WHERE links.user_id = ? GROUP BY links.id  ORDER BY links.created_at DESC LIMIT ? OFFSET ?
+            SELECT l.id, l.user_id,  l.url, l.titulo, l.description, l.created_at, u.username, u.email, l.image, ROUND(AVG(rating)) as media, COUNT(link_id) AS votes FROM links l left JOIN users u 
+            ON l.user_id=u.id left JOIN ratings r ON r.link_id= l.id WHERE l.user_id=? GROUP BY l.id  ORDER BY l.created_at DESC LIMIT ? OFFSET ?
         `,
             [id, limit, offset]
         );
