@@ -273,7 +273,6 @@ export const deleteCommentService = async ({ id, token }) => {
 
 export const UpdatePasswordService = async ({ password }) => {
     const token = localStorage.getItem("token");
-  
     const response = await fetch("http://localhost:3000/user/password", {
       method: "PUT",
       headers: {

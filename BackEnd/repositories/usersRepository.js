@@ -115,8 +115,7 @@ const updateUserPasswordById = async (id, password) => {
       await connection.query(
         `
         UPDATE users
-        SET password = ?
-        WHERE id = ?
+        SET password = ? WHERE id = ?
       `,
         [password, id]
       );
