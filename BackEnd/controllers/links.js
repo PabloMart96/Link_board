@@ -100,7 +100,7 @@ const updateLinkController = async (req, res, next) => {
       throw generateError('Estás tratando de editar un link que no es tuyo!!', 401);
     }
 
-    let imageName = '';
+    let imageName = link.image;
 
     if (req.files) {
       const { picture } = req.files;
