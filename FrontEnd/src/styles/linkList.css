@@ -5,7 +5,7 @@
 
 .element {
   width: 100%;
-  word-break: break-all;
+  word-break: keep-all;
   display: flex;
   flex-direction: row;
   justify-content: start;

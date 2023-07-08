@@ -31,7 +31,7 @@ export const UpdateProfilePage = () => {
         fetchUserData();
     }, [token]);
 
-    const handleForm = async (e) => {       
+    const handleForm = async (e) => {
         e.preventDefault();
         setShowModal(true);
     };
@@ -46,13 +46,13 @@ export const UpdateProfilePage = () => {
             if (picture) {
                 data.append("picture", picture);
             }
-        
+
             await UpdateUserService({ token, data });
             logout();
-            navigate("/login");  
+            navigate("/login");
         } catch (error) {
             setError(error.message);
-           }
+        }
     };
 
     return (
@@ -116,17 +116,17 @@ export const UpdateProfilePage = () => {
             </form>
             {showModal && (
                 <div className="modalUpdate">
-                <div className="modalText">
-                    <p>Al actualizar tus datos se procederá al cierre de la sesión y se te redirigirá a la página de Login.</p>
-                    <p>¿Deseas continuar?</p>
-                    <div className="modalbuttons">
-                        <button onClick={handleLogout}>Confirmar</button>
-                        <button onClick={() => setShowModal(false)}>Cerrar</button>
+                    <div className="modalText">
+                        <p>Al actualizar tus datos se procederá al cierre de la sesión y se te redirigirá a la página de Login.</p>
+                        <p>¿Deseas continuar?</p>
+                        <div className="modalbuttons">
+                            <button onClick={handleLogout}>Confirmar</button>
+                            <button onClick={() => setShowModal(false)}>Cerrar</button>
+                        </div>
                     </div>
                 </div>
-                </div>
             )}
-            <Link to="/user/password" className="btn">Cambiar Contraseña</Link>
+            <Link to="/user/password" className="btnPassword">Cambiar Contraseña</Link>
         </section>
     );
 };
