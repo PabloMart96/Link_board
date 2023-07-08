@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 import { UpdatePasswordService } from "../services/index";
 import '../styles/PopUp.css';
+import '../styles/updatePassword.css'
 
 export const UpdatePasswordPage = () => {
   const navigate = useNavigate();
@@ -78,7 +79,7 @@ export const UpdatePasswordPage = () => {
           </div>
         </div>
       )}
-      <Link to="/update" className="btn">
+      <Link to="/update" className="btnUpdate">
         Volver a Actualizar Usuario
       </Link>
     </section>

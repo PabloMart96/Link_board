@@ -6,7 +6,6 @@
   color: #18171c;
   font-family: "Syne", sans-serif;
   font-size: 25px;
-  font-weight: bold;
 }
 
 .form {
@@ -19,8 +18,11 @@
   flex: 1;
   padding: 10px;
   margin-right: 10px;
-  border: 1px solid white;
+  border: none;
   border-radius: 4px;
+  background-color: #18171c;
+  color: #fff;
+  font-size: 16px;
 }
 
 .submit-btn {

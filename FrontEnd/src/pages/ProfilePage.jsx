@@ -3,7 +3,7 @@ import { Error } from "../components/Error";
 import { Loading } from "../components/Loading";
 import { UserLinks } from "../components/UserLinks";
 import { useUser } from "../hooks/useUser";
-import { Avatar, Box, Typography } from "@mui/material";
+import { Avatar } from "@mui/material";
 import imageDefault from '../assets/default.jpg';
 import '../styles/profile.css';
 
@@ -21,12 +21,12 @@ export const ProfilePage = () => {
         <div className="profileContainer">
             <article className='profileCard'>
                 <Avatar alt="avatar" src={imagenSrc} className="avatarProfile" />
-                <Box xs={'auto'} flexGrow={1} sx={{ ml: 3, mt: 2 }}>
-                    <Typography variant="h4" textAlign={'start'}>{user.username}</Typography>
-                    <p>User email: {user.email}</p>
+                <div className="profileContent">
+                    <h2 className="titleContent">{user.username}</h2>
+                    <p>Email: {user.email}</p>
                     <p> {user.description}</p>
                     <p> Registered on {new Date(user.created_at).toLocaleDateString()}</p>
-                </Box>
+                </div>
             </article>
             <section className="listProfile">
                 <h2>Publicaciones</h2>
