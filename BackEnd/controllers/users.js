@@ -14,7 +14,7 @@ const schema = Joi.object().keys({
   username: Joi.string().min(4).max(120).required(),
   email: Joi.string().email().required(),
   password: Joi.string().min(4).max(20).optional(),
-  description: Joi.string().min(4),
+  description: Joi.string().min(4).max(200),
 });
 
 const schema2 = Joi.object().keys({
@@ -61,12 +61,12 @@ const getUserProfile = async (req, res, next) => {
     if (!user) {
       throw generateError('No hay ningun usuario con ese email y/o password', 404);
     }
-    const { id, username, created_at, image, description } = user;
+    const { id, username, password, created_at, image, description } = user;
 
     res.send({
       status: 'success',
       message: `Usuario con id: ${id}`,
-      data: { id, username, email, created_at, image, description }
+      data: { id, username, email, password, created_at, image, description }
     });
   } catch (error) {
     next(error);

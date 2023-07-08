@@ -13,8 +13,6 @@ const UpdateLinkPage = () => {
   const navigate = useNavigate();
   const { id } = useParams();
 
-  console.log(updatePicture);
-
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -23,7 +21,7 @@ const UpdateLinkPage = () => {
         setUpdatedUrl(data.url);
         setUpdatedTitulo(data.titulo);
         setUpdatedDescripcion(data.description);
-        setUpdatePicture(data.iamge)
+        setUpdatePicture(data.image)
       } catch (error) {
         setError(error.message);
       }
@@ -38,6 +36,7 @@ const UpdateLinkPage = () => {
     try {
       const data = new FormData(e.target);
       const token = localStorage.getItem("token");
+      
       await UpdateLinkService({ id, token, data });
       navigate(`/`);
     } catch (error) {
@@ -67,6 +66,8 @@ const UpdateLinkPage = () => {
             type="text"
             id="url"
             name="url"
+            placeholder="Max 200 characters"
+            maxLength={200}
             value={updatedUrl}
             onChange={handleUrlChange}
           />
@@ -77,6 +78,8 @@ const UpdateLinkPage = () => {
             type="text"
             id="titulo"
             name="titulo"
+            maxLength={15}
+            placeholder="Max 15 characters"
             value={updatedTitulo}
             onChange={handleTituloChange}
           />
@@ -87,6 +90,8 @@ const UpdateLinkPage = () => {
             type="textarea"
             id="description"
             name="description"
+            placeholder="Max 200 characters"
+            maxLength={200}
             value={updatedDescripcion}
             onChange={handleDescripcionChange}
           />
@@ -99,7 +104,7 @@ const UpdateLinkPage = () => {
             id="image"
             onChange={(e) => setUpdatePicture(e.target.files[0])}
           />
-          {updatePicture ? (
+          {updatePicture && updatePicture instanceof File ? (
             <figure>
               <img
                 src={URL.createObjectURL(updatePicture)}

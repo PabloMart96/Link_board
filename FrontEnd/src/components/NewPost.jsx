@@ -35,11 +35,11 @@ export const NewPost = ({ addPost }) => {
             <form onSubmit={handleForm}>
                 <fieldset>
                     <label htmlFor="text">URL</label>
-                    <input type="text" name="url" id="url" required />
+                    <input type="text" name="url" id="url" placeholder="Max 200 characters" maxLength={200} required />
                 </fieldset>
                 <fieldset>
                     <label htmlFor="text">Título</label>
-                    <input type="text" name="titulo" id="titulo" required />
+                    <input type="text" name="titulo" id="titulo" placeholder="Max 15 characters" maxLength={15} required />
                 </fieldset>
                 <fieldset>
                     <label>Descripción</label>
@@ -47,6 +47,8 @@ export const NewPost = ({ addPost }) => {
                         type="textarea"
                         name="description"
                         id="description"
+                        placeholder="Max 200 characters"
+                        maxLength={200}
                     />
 
                 </fieldset>

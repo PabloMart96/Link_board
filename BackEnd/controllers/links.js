@@ -9,7 +9,7 @@ const { generateError } = require('../helpers');
 //Crea un esquema de validacion con el paquete Joi
 const schema = Joi.object().keys({
   url: Joi.string().min(10).max(200).required(),
-  titulo: Joi.string().min(3).max(200).required(),
+  titulo: Joi.string().min(3).max(15).required(),
   description: Joi.string().min(10).max(200).required()
 });
 

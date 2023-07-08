@@ -59,7 +59,9 @@ export const Element = ({ link, removePost }) => {
                         <Link to={`/links/edit/${link.id}`}>
                             <EditIcon className="ediIcon" />
                         </Link>
-                        <DeletePopUp className='deleteIcon' onConfirm={handleConfirmDelete} />
+                        <DeletePopUp className='deleteIcon' onConfirm={handleConfirmDelete} 
+                        message="¿Estás seguro de que quieres eliminar esta publicación?"
+                        />
 
                         {error ? <p className="error">{error}</p> : null}
                     </section>

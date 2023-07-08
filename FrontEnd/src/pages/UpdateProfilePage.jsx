@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 import { UpdateUserService, getMyDataService } from "../services/index";
 import '../styles/updateProfile.css';
+import '../styles/PopUp.css'
 
 export const UpdateProfilePage = () => {
     const navigate = useNavigate();
@@ -13,6 +14,7 @@ export const UpdateProfilePage = () => {
     const [picture, setPicture] = useState(null);
     const [description, setDescription] = useState("");
     const [error, setError] = useState("");
+    const [showModal, setShowModal] = useState(false);
 
     useEffect(() => {
         const fetchUserData = async () => {
@@ -29,18 +31,28 @@ export const UpdateProfilePage = () => {
         fetchUserData();
     }, [token]);
 
-    const handleForm = async (e) => {
+    const handleForm = async (e) => {       
         e.preventDefault();
+        setShowModal(true);
+    };
 
+    const handleLogout = async () => {
         try {
-            const data = new FormData(e.target);
-            await UpdateUserService({ token, data });
+            const data = new FormData();
+            data.append("username", username);
+            data.append("email", email);
+            data.append("description", description);
 
+            if (picture) {
+                data.append("picture", picture);
+            }
+        
+            await UpdateUserService({ token, data });
             navigate("/login");
             logout();
         } catch (error) {
             setError(error.message);
-        }
+           }
     };
 
     return (
@@ -75,6 +87,8 @@ export const UpdateProfilePage = () => {
                         type="text"
                         name="description"
                         id="description"
+                        placeholder="Max 200 character"
+                        maxLength={200}
                         value={description || ""}
                         onChange={(e) => setDescription(e.target.value)}
                     />
@@ -100,6 +114,18 @@ export const UpdateProfilePage = () => {
                 <button className="btn">Actualizar</button>
                 {error ? <p className="error">{error}</p> : null}
             </form>
+            {showModal && (
+                <div className="modalUpdate">
+                <div className="modalText">
+                    <p>¿Al actualizar tus datos se procederá al cierre de la sesión y se te redirigirá a la página de Login?</p>
+                    <div className="modalbuttons">
+                        <button onClick={handleLogout}>Confirmar</button>
+                        <button onClick={() => setShowModal(false)}>Cerrar</button>
+                    </div>
+                </div>
+                </div>
+            )}
+
         </section>
     );
 };
