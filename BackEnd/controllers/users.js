@@ -6,7 +6,7 @@ const fs = require('fs').promises;
 const sharp = require('sharp');
 const nanoid = require('nanoid');
 const { generateError } = require("../helpers");
-const { createUser, getUserById, getUserByEmail, updateUserById, uploadUserImage } = require("../repositories/usersRepository");
+const { createUser, getUserById, getUserByEmail, updateUserById, uploadUserImage, updateUserPasswordById } = require("../repositories/usersRepository");
 const { getLinksByUserId } = require('../repositories/linksRepository');
 
 //Crea un esquema de validacion con el paquete Joi
@@ -138,7 +138,6 @@ const loginController = async (req, res, next) => {
 const updateUser = async (req, res, next) => {
   try {
     const { id } = req.auth; //Obtencion del id de usuario a partir de la validacion
-
     const { body } = req;
     /*await schema.validateAsync(body);*/
     let { username, email, password, description, image } = body; //desestructuracion del body pasado en la req
@@ -299,6 +298,27 @@ const getUserLinksByIdController = async (req, res, next) => {
   }
 };
 
+const updatePasswordController = async (req, res, next) => {
+  try {
+    const { id } = req.auth;
+    const { password } = req.body;
+
+    if (!password || password.trim() === "") {
+      throw generateError('La contraseña no puede estar vacía', 400);
+    }
+
+    const passwordHash = await bcrypt.hash(password, 8);
+    await updateUserPasswordById(id, passwordHash);
+
+    res.send({
+      status: 'success',
+      message: 'Contraseña actualizada exitosamente',
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   newUserController,
   loginController,
@@ -308,4 +328,5 @@ module.exports = {
   getUserLinksController,
   getUserProfileById,
   getUserLinksByIdController,
+  updatePasswordController,
 };

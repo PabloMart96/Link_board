@@ -106,13 +106,30 @@ const uploadUserImage = async (id, image) => {
     } finally {
         if (connection) connection.release();
     }
-}
+};
 
-
+const updateUserPasswordById = async (id, password) => {
+    let connection;
+    try {
+      connection = await getConnection();
+      await connection.query(
+        `
+        UPDATE users
+        SET password = ?
+        WHERE id = ?
+      `,
+        [password, id]
+      );
+    } finally {
+      if (connection) connection.release();
+    }
+  };
+  
 module.exports = {
     createUser,
     getUserById,
     getUserByEmail,
     updateUserById,
-    uploadUserImage
+    uploadUserImage,
+    updateUserPasswordById,
 }
