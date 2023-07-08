@@ -8,6 +8,7 @@ import { UpdateProfilePage } from '../pages/UpdateProfilePage';
 import { LinkPage } from '../pages/LinkPage';
 import { NotFoundPage } from '../pages/NotFoundPage';
 import UpdateLinkPage from '../pages/UpdateLinkPage';
+import { UpdatePasswordPage } from '../pages/UpdatePasswordPage';
 export const AppRouter = () => {
     return (
         <Routes>
@@ -18,6 +19,7 @@ export const AppRouter = () => {
             <Route path='/update' element={<UpdateProfilePage />} />
             <Route path='/link-detail/:id' element={<LinkPage />} />
             <Route path="/links/edit/:id" element={<UpdateLinkPage />} />
+            <Route path="/user/password" element={<UpdatePasswordPage />} />
             <Route path='*' element={<NotFoundPage />} />
         </Routes>
     )

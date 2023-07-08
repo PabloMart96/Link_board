@@ -1,5 +1,5 @@
 const express = require('express');
-const { newUserController, loginController, updateUser, getUserProfile, getUserProfileById, imagenController, getUserLinksController, getUserLinksByIdController } = require('../controllers/users');
+const { newUserController, loginController, updateUser, getUserProfile, getUserProfileById, imagenController, getUserLinksController, getUserLinksByIdController, updatePasswordController } = require('../controllers/users');
 const validateAuth = require('../middlewares/validateAuth');
 
 const userRoutes = express.Router();
@@ -16,5 +16,6 @@ userRoutes.route('/profile').all(validateAuth).get(getUserProfile).put(updateUse
 userRoutes.route('/upload').all(validateAuth).post(imagenController); // Actualiza unicamente la imagen de perfil del usuario
 userRoutes.route('/links').all(validateAuth).get(getUserLinksController); // Muestra los links publicados por el usuario
 userRoutes.route('/links/:id').all(validateAuth).get(getUserLinksByIdController); // Muestra los links publicados por el usuario a partir del id pasado por params
+userRoutes.route('/password').all(validateAuth).put(updatePasswordController);//Actualiza solo la contra
 
 module.exports = userRoutes;

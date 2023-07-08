@@ -1,9 +1,9 @@
 import { useContext, useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 import { UpdateUserService, getMyDataService } from "../services/index";
 import '../styles/updateProfile.css';
-import '../styles/PopUp.css'
+import '../styles/PopUp.css';
 
 export const UpdateProfilePage = () => {
     const navigate = useNavigate();
@@ -48,8 +48,8 @@ export const UpdateProfilePage = () => {
             }
         
             await UpdateUserService({ token, data });
-            navigate("/login");
             logout();
+            navigate("/login");  
         } catch (error) {
             setError(error.message);
            }
@@ -117,7 +117,8 @@ export const UpdateProfilePage = () => {
             {showModal && (
                 <div className="modalUpdate">
                 <div className="modalText">
-                    <p>¿Al actualizar tus datos se procederá al cierre de la sesión y se te redirigirá a la página de Login?</p>
+                    <p>Al actualizar tus datos se procederá al cierre de la sesión y se te redirigirá a la página de Login.</p>
+                    <p>¿Deseas continuar?</p>
                     <div className="modalbuttons">
                         <button onClick={handleLogout}>Confirmar</button>
                         <button onClick={() => setShowModal(false)}>Cerrar</button>
@@ -125,7 +126,7 @@ export const UpdateProfilePage = () => {
                 </div>
                 </div>
             )}
-
+            <Link to="/user/password" className="btn">Cambiar Contraseña</Link>
         </section>
     );
 };
