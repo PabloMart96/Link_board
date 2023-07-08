@@ -5,6 +5,8 @@ import { createCommentService, deleteCommentService } from "../services/index";
 import { useNavigate } from "react-router-dom";
 import { DeletePopUp } from "./DeletePopUp";
 
+import '../styles/comments.css'
+
 export const Comments = ({ linkId, comments, addComment, removeComment }) => {
 
   const navigate = useNavigate();
@@ -12,7 +14,6 @@ export const Comments = ({ linkId, comments, addComment, removeComment }) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [newCommentText, setNewCommentText] = useState("");
-
 
   const handleCommentSubmit = async (event) => {
     event.preventDefault();
@@ -29,8 +30,6 @@ export const Comments = ({ linkId, comments, addComment, removeComment }) => {
     }
   };
 
-
-
   const deleteComment = async (id) => {
     try {
       await deleteCommentService({ id, token });
@@ -44,42 +43,46 @@ export const Comments = ({ linkId, comments, addComment, removeComment }) => {
     }
   };
 
-
   return (
-    <div>
-      <h2>Comments</h2>
-      <form onSubmit={handleCommentSubmit}>
+    <div className="comments">
+      <h2 className="title">Comments</h2>
+      <form className="form" onSubmit={handleCommentSubmit}>
         <input
+          className="input"
           type="text"
           value={newCommentText}
           onChange={(event) => setNewCommentText(event.target.value)}
-          placeholder="Introduce tu comentario"
+          placeholder="Max 500 characters"
+          maxLength={500}
         />
-        <button type="submit">Submit</button>
-        {loading ? <p>Loading comments...</p> : null}
-        {error ? <p>{error}</p> : null}
+        <button className="submit-btn" type="submit">Submit</button>
+        {loading ? <p className="loading">Loading comments...</p> : null}
+        {error ? <p className="error">{error}</p> : null}
       </form>
       {comments.length > 0 ?
         (
-          comments.map((comment, index) => (
-            <ul key={index}>
-              <li>{comment.comment_text}
-                {comment.user_id === user.id && (
-                  <DeletePopUp onConfirm={() => deleteComment(comment.id)} />
-                )}
-                {error ? <p>{error}</p> : null}
+          <ul className="list">
+            {comments.map((comment, index) => (
+              <li className="item" key={index}> 
+                  <p className="text">{comment.comment_text}</p>
+                  <div className="icon">
+                  {comment.user_id === user.id && (
+                    <DeletePopUp
+                      onConfirm={() => deleteComment(comment.id)}
+                      message="¿Estás seguro de que quieres eliminar este comentario?"
+                    />
+                  )}
+                </div>
+                {error ? <p className="error">{error}</p> : null}
               </li>
-            </ul>
-          ))
+            ))}
+          </ul>
         )
-
         : (
-          <p>No exiten comentarios para este link...</p>
+          <p className="no-comments">No existen comentarios para este link...</p>
         )}
     </div>
-
   );
-
 };
 
 Comments.propTypes = {

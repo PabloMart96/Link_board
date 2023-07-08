@@ -3,7 +3,7 @@ import PopUp from "reactjs-popup";
 import DeleteIcon from '@mui/icons-material/Delete';
 import '../styles/PopUp.css';
 
-export const DeletePopUp = ({ onConfirm }) => {
+export const DeletePopUp = ({ onConfirm, message }) => {
   return (
     <PopUp
       trigger={
@@ -15,7 +15,7 @@ export const DeletePopUp = ({ onConfirm }) => {
       {(close) => (
         <div className='modal'>
           <h3>Confirmación</h3>
-          <p>¿Estás seguro de que quieres eliminar esta publicación?</p>
+          <p>{message}</p>
           <button onClick={() => { onConfirm(); close(); }}>Eliminar</button>
           <button onClick={close}>Cancelar</button>
         </div>
@@ -27,4 +27,5 @@ export const DeletePopUp = ({ onConfirm }) => {
 
 DeletePopUp.propTypes = {
   onConfirm: PropTypes.func,
+  message: PropTypes.string,
 }
