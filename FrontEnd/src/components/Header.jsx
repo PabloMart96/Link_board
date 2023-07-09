@@ -12,12 +12,12 @@ export const Header = () => {
         <AppBar position="fixed">
             <Toolbar>{
                 user ? (
-                    <Typography variant="h4" component={Link} to="/" sx={{ flexGrow: 1, textDecoration: 'none', color: '#F7F2EF' }}>
+                    <Typography variant="h5" component={Link} to="/" sx={{ flexGrow: 1, textDecoration: 'none', color: '#F7F2EF' }}>
                         LinkOverflow
                     </Typography>
                 ) :
                     (
-                        <Typography variant="h4" component={Link} to="/login" sx={{ flexGrow: 1, textDecoration: 'none', color: '#F7F2EF' }}>
+                        <Typography variant="h5" component={Link} to="/login" sx={{ flexGrow: 1, textDecoration: 'none', color: '#F7F2EF' }}>
                             LinkOverflow
                         </Typography>
                     )

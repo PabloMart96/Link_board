@@ -54,6 +54,7 @@
 
 .element .rest .url {
   font-weight: bold;
+  word-break: break-all;
 }
 
 .element .rest .create .owner {
@@ -91,4 +92,15 @@
     0 0 20px rgba(49, 138, 172, 0.4);
   outline-color: rgba(49, 138, 172, 0);
   outline-offset: 5rem;
+}
+
+@media (max-width: 600px) {
+  .element {
+    flex-wrap: wrap;
+  }
+
+  .element .titleImage {
+    width: 100%;
+    align-items: center;
+  }
 }

@@ -61,7 +61,7 @@ export const Auth = () => {
     return user ? (
         <>
             <Box display="flex" alignItems="center" marginRight={2}>
-                <Typography variant="body1" sx={{ marginRight: 1, color: '#F7F2EF' }} >
+                <Typography sx={{ marginRight: 1, color: '#F7F2EF', fontSize: '10px' }} >
                     HOLA {user.username.toUpperCase()}
                 </Typography>
                 {user.image ? <Avatar src={`http://localhost:3000/${user.image}`} alt="Perfil" sx={{ marginRight: 1 }} /> : <AccountCircleIcon />}
