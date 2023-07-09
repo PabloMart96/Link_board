@@ -1,6 +1,6 @@
 const { getConnection } = require('../db/db');
 
-//Creamos una valoracion de la publicacion
+//Crea una valoracion de la publicacion
 const addVote = async (user_id, link_id, rating) => {
     let connection;
 
@@ -21,7 +21,7 @@ const addVote = async (user_id, link_id, rating) => {
     }
 };
 
-//Seleccionamos la media y la cantidad de votaciones sobre una publicacion
+//Selecciona la media y la cantidad de votaciones sobre una publicacion
 const getRating = async (link_id) => {
     let connection;
 
@@ -42,7 +42,7 @@ const getRating = async (link_id) => {
     }
 };
 
-//Comprobar si el usuario puede o ya en el link
+//Comprueba si el usuario puede o ya en el link
 const checkVoted = async (userId, linkId) => {
     let connection;
     try {

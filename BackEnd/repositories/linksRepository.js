@@ -100,6 +100,7 @@ const getLinksByUserId = async (id, limit, offset) => {
     }
 };
 
+//Actualiza un registro en la tabla de links por ID
 const updateLinkById = async (id, url, titulo, description, image) => {
     let connection;
 

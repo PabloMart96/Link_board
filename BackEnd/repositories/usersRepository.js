@@ -2,7 +2,7 @@ const bcrypt = require('bcrypt');
 const { getConnection } = require('../db/db');
 const { generateError } = require('../helpers');
 
-//Crear un usuario en la base de datos y devolver su id
+//Crea un usuario en la base de datos y devolver su id
 const createUser = async (username, email, password) => {
     let connection;
     try {
@@ -70,7 +70,7 @@ const getUserByEmail = async (email) => {
     }
 };
 
-//Actualizacion de la informacion del usuario por el Id
+//Actualiza la informacion del usuario por el ID
 const updateUserById = async (data) => {
     let connection;
     const { id, username, email, password, description } = data;
@@ -91,7 +91,7 @@ const updateUserById = async (data) => {
 
 };
 
-//Introducimos una imagen dentro del perfil del usuario
+//Introduce una imagen dentro del perfil del usuario
 const uploadUserImage = async (id, image) => {
     let connection;
     try {
@@ -108,6 +108,7 @@ const uploadUserImage = async (id, image) => {
     }
 };
 
+//Actualiza la contraseña del usuario por el ID
 const updateUserPasswordById = async (id, password) => {
     let connection;
     try {

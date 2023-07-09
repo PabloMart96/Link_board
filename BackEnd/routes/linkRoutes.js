@@ -18,7 +18,7 @@ linkRoutes.route('/link-detail/:id').all(validateAuth).get(getSingleLinkControll
 linkRoutes.route('/edit/:id').all(validateAuth).put(updateLinkController); //Permite editar un link
 linkRoutes.route('/comments/:id').all(validateAuth).get(getCommentsController); //Muestra los comentarios de un link
 linkRoutes.route('/comments/:id').all(validateAuth).post(createCommentController); //Crea un comentario para un link
-linkRoutes.route('/comments/:id').all(validateAuth).delete(deleteCommentController);
+linkRoutes.route('/comments/:id').all(validateAuth).delete(deleteCommentController);//Permite borrar un comentario si eres quien la creo
 
 
 module.exports = linkRoutes;
