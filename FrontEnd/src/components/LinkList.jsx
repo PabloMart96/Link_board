@@ -11,7 +11,7 @@ export const LinkList = ({ links, removePost, handlePagination }) => {
                 {links.map((link, index) => {
                     return (
                         <li key={index} className='list'>
-                            <Element link={link} removePost={removePost} />
+                            <Element maxLength={400} link={link} removePost={removePost} />
                         </li>
                     );
                 })}

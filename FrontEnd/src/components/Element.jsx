@@ -43,7 +43,7 @@ export const Element = ({ link, removePost }) => {
                 <img src={imageSrc} alt="image" />
             </Box>
             <Box className='rest'>
-                <p className="url">{link.url}</p>
+                <p className="url" maxLength={400}>{link.url}</p>
                 <p className="descripcion">{link.description}</p>
                 <p className="create">
                     <Link className="owner" to={`/user/${link.user_id}`}>{link.username}</Link> On{" "}
