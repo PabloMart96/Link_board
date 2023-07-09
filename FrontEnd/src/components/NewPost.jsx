@@ -35,7 +35,7 @@ export const NewPost = ({ addPost }) => {
             <form onSubmit={handleForm}>
                 <fieldset>
                     <label htmlFor="text">URL</label>
-                    <input type="text" name="url" id="url" placeholder="Max 200 characters" maxLength={200} required />
+                    <input type="text" name="url" id="url" placeholder="Max 400 characters" maxLength={400} required />
                 </fieldset>
                 <fieldset>
                     <label htmlFor="text">Título</label>

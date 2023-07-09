@@ -34,7 +34,7 @@ async function main() {
     CREATE TABLE links (
         id INTEGER PRIMARY KEY AUTO_INCREMENT,
         user_id INTEGER NOT NULL,
-        url VARCHAR(200) NOT NULL,
+        url VARCHAR(400) NOT NULL,
         titulo VARCHAR(200) NOT NULL,
         image VARCHAR(200) NULL DEFAULT NULL,
         description VARCHAR(200) NOT NULL,
