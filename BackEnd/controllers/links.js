@@ -56,7 +56,7 @@ const newLinkController = async (req, res, next) => {
         throw generateError('Formato no válido', 400);
       }
 
-      //creamos la ruta de la imagen
+      //crea la ruta de la imagen
       const pathPicture = path.join(__dirname, '../public/links');
 
 
@@ -67,7 +67,7 @@ const newLinkController = async (req, res, next) => {
       imageName = `${nanoid(24)}.jpg`;
       const pathImage = `${pathPicture}/${imageName}`;
 
-      //Redimensionamos la imagen
+      //Redimensiona la imagen
       await sharp(picture.data).resize(500, 500).toFile(pathImage);
     }
 
@@ -106,12 +106,12 @@ const updateLinkController = async (req, res, next) => {
       const { picture } = req.files;
       const extension = path.extname(picture.name);
 
-      //validamos la extension de la imagen
+      //valida la extension de la imagen
       if (!validExtension.includes(extension)) {
         throw generateError('Formato no válido', 400);
       }
 
-      //creamos la ruta de la imagen
+      //crea la ruta de la imagen
       const pathPicture = path.join(__dirname, '../public/links');
 
 
@@ -122,7 +122,7 @@ const updateLinkController = async (req, res, next) => {
       imageName = `${nanoid(24)}.jpg`;
       const pathImage = `${pathPicture}/${imageName}`;
 
-      //Redimensionamos la imagen
+      //Redimensiona la imagen
       await sharp(picture.data).resize(500, 500).toFile(pathImage);
     }
 

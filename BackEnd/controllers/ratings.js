@@ -47,7 +47,7 @@ const registerVoteController = async (req, res, next) => {
     }
 };
 
-//Obtencion de la media y el numero de votos de una publicacion
+//Obtiene la media y el numero de votos de una publicacion
 const getAverageRatings = async (req, res, next) => {
 
     try {
@@ -71,6 +71,7 @@ const getAverageRatings = async (req, res, next) => {
     }
 }
 
+//Obtiene los votos de un link
 const getUserVote = async (req, res, next) => {
     try {
         const userId = req.auth.id;
