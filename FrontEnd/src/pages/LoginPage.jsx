@@ -30,7 +30,7 @@ export const LoginPage = () => {
   return (
     <section className="center">
       <form onSubmit={handleForm}>
-        <h1>Login</h1>
+        <h1>Inicio de sesión</h1>
         <fieldset className="inputbox">
           <input
             type="email"
@@ -54,10 +54,10 @@ export const LoginPage = () => {
           <label className="label" htmlFor="password">Password</label>
         </fieldset>
         <div className="inputbox">
-          <button className="btn">Login</button>
+          <button className="btn">Acceder</button>
         </div>
         <div className="text">
-          <Link to={'/register'}>Create account</Link>
+          <p>¿No tienes cuenta? <Link to={'/register'}>Regístrate</Link></p>
         </div>
         {error ? <p className="error">{error}</p> : null}
       </form>

@@ -32,7 +32,7 @@ export const RegisterPage = () => {
   return (
     <section className="center">
       <form onSubmit={handleForm}>
-        <h1>Register</h1>
+        <h1>Registrar Usuario</h1>
         <fieldset className="inputbox">
           <input
             type="text"
@@ -69,10 +69,10 @@ export const RegisterPage = () => {
           <label className="label" htmlFor="password">Password</label>
         </fieldset>
         <div className="inputbox">
-          <button className="btn">Sing Up</button>
+          <button className="btn">Registrar</button>
         </div>
         <div className="text">
-          <Link to={'/login'}>Sign In</Link>
+          <p>¿Ya tienes cuenta? <Link to={'/login'}>Iniciar sesión</Link></p>
         </div>
 
         {error ? <p className="error">{error}</p> : null}
