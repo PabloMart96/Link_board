@@ -2,6 +2,7 @@ import { useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 import { UpdatePasswordService } from "../services/index";
+import VisibilityIcon from '@mui/icons-material/Visibility';
 import '../styles/PopUp.css';
 import '../styles/updatePassword.css'
 
@@ -13,6 +14,8 @@ export const UpdatePasswordPage = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
   const [showModal, setShowModal] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const [showPassword2, setShowPassword2] = useState(false);
 
   const handleForm = async (e) => {
     e.preventDefault();
@@ -35,31 +38,52 @@ export const UpdatePasswordPage = () => {
     }
   };
 
+  const toggleShowPassword = () => {
+    setShowPassword(!showPassword);
+  };
+  const toggleShowPassword2 = () => {
+    setShowPassword2(!showPassword2);
+  };
+
   return (
     <section className="updatePassword">
       <h2>Cambiar Contraseña</h2>
       <form onSubmit={handleForm}>
         <fieldset>
           <label htmlFor="password">Nueva Contraseña</label>
+          <div className="passwordContainer">
           <input
-            type="password"
+            type={showPassword ? "text" : "password"}
             name="password"
             id="password"
             value={password}
             required
             onChange={(e) => setPassword(e.target.value)}
           />
+          <button
+              type="button"
+              className="ShowPasswordButton"
+              onClick={toggleShowPassword}
+            ><VisibilityIcon /></button>
+          </div>  
         </fieldset>
         <fieldset>
           <label htmlFor="confirmPassword">Confirmar Contraseña</label>
+          <div className="confirmPasswordContainer">
           <input
-            type="password"
+            type={showPassword2 ? "text" : "password"}
             name="confirmPassword"
             id="confirmPassword"
             value={confirmPassword}
             required
             onChange={(e) => setConfirmPassword(e.target.value)}
           />
+          <button
+              type="button"
+              className="ShowPasswordButton"
+              onClick={toggleShowPassword2}
+            ><VisibilityIcon /></button>
+          </div>
         </fieldset>
         <button className="btn">Cambiar Contraseña</button>
         {error && <p className="error">{error}</p>}

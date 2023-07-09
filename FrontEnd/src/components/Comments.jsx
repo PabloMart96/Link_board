@@ -2,7 +2,7 @@ import { useState, useContext } from "react";
 import PropTypes from 'prop-types';
 import { AuthContext } from "../context/AuthContext";
 import { createCommentService, deleteCommentService } from "../services/index";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { DeletePopUp } from "./DeletePopUp";
 
 import '../styles/comments.css'
@@ -73,6 +73,9 @@ export const Comments = ({ linkId, comments, addComment, removeComment }) => {
                     />
                   )}
                 </div>
+                  <p className="text"><Link className="owner" to={`/user/${comment.user_id}`}>{comment.username}</Link> On{" "}
+                    {new Date(comment.created_at).toUTCString()}</p>
+                  
                 {error ? <p className="error">{error}</p> : null}
               </li>
             ))}

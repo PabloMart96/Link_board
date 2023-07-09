@@ -16,6 +16,6 @@ userRoutes.route('/profile').all(validateAuth).get(getUserProfile).put(updateUse
 userRoutes.route('/upload').all(validateAuth).post(imagenController); // Actualiza unicamente la imagen de perfil del usuario
 userRoutes.route('/links').all(validateAuth).get(getUserLinksController); // Muestra los links publicados por el usuario
 userRoutes.route('/links/:id').all(validateAuth).get(getUserLinksByIdController); // Muestra los links publicados por el usuario a partir del id pasado por params
-userRoutes.route('/password').all(validateAuth).put(updatePasswordController);//Actualiza solo la contra
+userRoutes.route('/password').all(validateAuth).put(updatePasswordController);//Actualiza solo la contraseña del usuario logeado
 
 module.exports = userRoutes;
