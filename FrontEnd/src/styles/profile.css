@@ -56,3 +56,13 @@
   color: #ffffff;
   font-family: "Syne", sans-serif;
 }
+
+@media (max-width: 600px) {
+  .profileContainer .profileCard {
+    flex-wrap: wrap;
+  }
+
+  .profileContainer .profileCard {
+    justify-content: center;
+  }
+}
