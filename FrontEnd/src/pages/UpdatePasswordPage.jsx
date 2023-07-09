@@ -56,6 +56,7 @@ export const UpdatePasswordPage = () => {
             type={showPassword ? "text" : "password"}
             name="password"
             id="password"
+            maxLength={100}
             value={password}
             required
             onChange={(e) => setPassword(e.target.value)}
@@ -74,6 +75,7 @@ export const UpdatePasswordPage = () => {
             type={showPassword2 ? "text" : "password"}
             name="confirmPassword"
             id="confirmPassword"
+            maxLength={100}
             value={confirmPassword}
             required
             onChange={(e) => setConfirmPassword(e.target.value)}

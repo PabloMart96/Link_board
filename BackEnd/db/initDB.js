@@ -24,7 +24,7 @@ async function main() {
         id INTEGER PRIMARY KEY AUTO_INCREMENT,
         username VARCHAR(30) NOT NULL,
         email VARCHAR(100) UNIQUE NOT NULL,
-        password VARCHAR(100),
+        password VARCHAR(100) NOT NULL,
         image VARCHAR(200) NULL DEFAULT NULL,
         description TEXT NULL DEFAULT NULL,
         created_at DATETIME DEFAULT CURRENT_TIMESTAMP

@@ -43,6 +43,10 @@
   font-size: 28px;
 }
 
+.profileContainer .profileCard .profileContent .descriptionContent {
+  word-break: keep-all;
+}
+
 .profileContainer .listProfile {
   width: 80%;
   display: flex;

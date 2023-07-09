@@ -24,8 +24,8 @@ export const ProfilePage = () => {
                 <div className="profileContent">
                     <h2 className="titleContent">{user.username}</h2>
                     <p>Email: {user.email}</p>
-                    <p> {user.description}</p>
-                    <p> Registered on {new Date(user.created_at).toLocaleDateString()}</p>
+                    <p className="descriptionContent">{user.description}</p>
+                    <p>Registered on {new Date(user.created_at).toLocaleDateString()}</p>
                 </div>
             </article>
             <section className="listProfile">

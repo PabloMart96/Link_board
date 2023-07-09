@@ -65,6 +65,8 @@ export const UpdateProfilePage = () => {
                         type="text"
                         name="username"
                         id="username"
+                        placeholder="Max 30 character"
+                        maxLength={30}
                         value={username}
                         required
                         onChange={(e) => setUsername(e.target.value)}
@@ -76,6 +78,7 @@ export const UpdateProfilePage = () => {
                         type="email"
                         name="email"
                         id="email"
+                        maxLength={100}
                         value={email}
                         required
                         onChange={(e) => setEmail(e.target.value)}
