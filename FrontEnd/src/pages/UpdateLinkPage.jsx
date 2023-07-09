@@ -66,8 +66,8 @@ const UpdateLinkPage = () => {
             type="text"
             id="url"
             name="url"
-            placeholder="Max 200 characters"
-            maxLength={200}
+            placeholder="Max 400 characters"
+            maxLength={400}
             value={updatedUrl}
             onChange={handleUrlChange}
           />

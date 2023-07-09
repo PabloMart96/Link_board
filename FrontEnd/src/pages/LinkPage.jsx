@@ -19,7 +19,7 @@ export const LinkPage = () => {
     <>
       {user ?
         <section>
-          <Element link={link} />
+          <Element maxLength={400} link={link} />
           <Comments linkId={id} comments={comments} addComment={addComment} removeComment={removeComment} />
         </section> : null
       }
